@@ -9,11 +9,24 @@
               <div class="title text-center text-capitalize my-3" data-aos="fade-down" data-aos-duration="1000">
                 <h1 class="fw-bold">{{'register.register' | translate}}</h1>
               </div>
-
               <form [formGroup]="registerForm">
+              <mat-form-field appearance="fill" data-aos="fade-down" data-aos-duration="1000">
+                <mat-label>{{'register.fullName' | translate}}</mat-label>
+                <input type="text" matInput formControlName="fullName" placeholder="Ex. John Doe" />
+                <mat-error *ngIf="registerForm.controls.fullName.errors?.['required']">
+                  {{'register.fullName-is' | translate}} <strong>{{'register.required' | translate}}</strong>
+                </mat-error>
+                <mat-error *ngIf="registerForm.controls.fullName.errors?.['minlength']">
+                  {{'register.fullNameMin' | translate}}
+                </mat-error>
+                <mat-error *ngIf="registerForm.controls.fullName.errors?.['maxlength']">
+                  {{'register.fullNameMax' | translate}}
+                </mat-error>
+              </mat-form-field>
+           
                 <mat-form-field appearance="fill" data-aos="fade-down" data-aos-duration="1000">
                   <mat-label>{{'register.username' | translate}}</mat-label>
-                  <input type="text" matInput formControlName="username" placeholder="Ex. John Doe" />
+                  <input type="text" matInput formControlName="username" placeholder="Ex. John_Doe" />
                   <mat-error *ngIf="registerForm.controls.username.errors?.['required']">
                     {{'register.username-is' | translate}} <strong>{{'register.required' | translate}}</strong>
                   </mat-error>
@@ -25,20 +38,6 @@
                   </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill" data-aos="fade-down" data-aos-duration="1000">
-                  <mat-label>{{'register.fullName' | translate}}</mat-label>
-                  <input type="text" matInput formControlName="name" placeholder="Ex. John Doe" />
-                  <mat-error *ngIf="registerForm.controls.name.errors?.['required']">
-                    {{'register.fullName-is' | translate}} <strong>{{'register.required' | translate}}</strong>
-                  </mat-error>
-                  <mat-error *ngIf="registerForm.controls.name.errors?.['minlength']">
-                    {{'register.fullNameMin' | translate}}
-                  </mat-error>
-                  <mat-error *ngIf="registerForm.controls.name.errors?.['maxlength']">
-                    {{'register.fullNameMax' | translate}}
-                  </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill" data-aos="fade-down" data-aos-duration="1000">
                   <mat-label>{{'register.email' | translate}}</mat-label>
                   <input type="email" matInput formControlName="email" placeholder="Ex. example@mail.com" />
                   <mat-error *ngIf="registerForm.controls.email.errors?.['required']">
@@ -48,8 +47,6 @@
                     {{'register.emailAddress' | translate}}
                   </mat-error>
                 </mat-form-field>
-
-
                 <mat-form-field appearance="fill" data-aos="fade-down" data-aos-duration="1000">
                   <mat-label>{{'register.password' | translate}}</mat-label>
                   <input [type]="hide ? 'password' : 'text'" formControlName="password" matInput
@@ -81,6 +78,19 @@
                     {{'register.confirm-the' | translate}}
                   </mat-error>
                 </mat-form-field>
+                <mat-form-field appearance="fill" data-aos="fade-down" data-aos-duration="1000">
+                  <mat-label>{{'register.phone_number' | translate}}</mat-label>
+                  <input type="text" matInput formControlName="phone_number" placeholder="Ex. +201000000000" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" data-aos="fade-down" data-aos-duration="1000">
+                  <mat-label>{{'register.city' | translate}}</mat-label>
+                  <input type="text" matInput formControlName="city" placeholder="Ex. Cairo" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" data-aos="fade-down" data-aos-duration="1000">
+                  <mat-label>{{'register.addresss' | translate}}</mat-label>
+                  <input type="text" matInput formControlName="address" placeholder="Ex. Cairo" />
+                </mat-form-field>
+               
                 <!-- <span class="error" *ngIf="confirmPassword?.value !== password?.value">
                   Confirm the password is different from the password
                 </span> -->

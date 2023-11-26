@@ -9,7 +9,7 @@
     </nav>
     <div class="content-page">
       <div class="row">
-        <div class="col-12">
+        <!-- <div class="col-12">
           <div class="tab-search" data-aos="fade-down" data-aos-duration="1000">
             <div class="icons-layout">
               <a [ngClass]="grid ? 'active' : ''" (click)="grid = true"><i class='bx bxs-grid-alt'></i></a>
@@ -38,7 +38,7 @@
               </form>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="col-12">
           <div class="cards" data-aos="fade-down" data-aos-duration="1000">
             <div class="row" *ngIf="grid">
@@ -47,12 +47,12 @@
                   [newPrice]="item.newPrice" [sub]="item.sub"></card>
                 </div>
               </div>
-              <div class="grid" *ngIf="!grid">
+              <!-- <div class="grid" *ngIf="!grid">
                 <div *ngFor="let item of courses" data-aos="fade-down" data-aos-duration="1000">
                   <card-grid [img]="item.img" [logo]="item.logo" [name]="item.name" [title]="item.title" [price]="item.price"
                   [desc]="item.desc"  [newPrice]="item.newPrice" [sub]="item.sub"></card-grid>
                 </div>
-              </div>
+              </div> -->
           </div>
         </div>
       </div>

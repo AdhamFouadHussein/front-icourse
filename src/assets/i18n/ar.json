@@ -83,7 +83,7 @@
   "checkout": {
     "noAccount": "ليس لديك حساب ؟",
     "registerAccount": "انقر هنا لتسجيل حساب جديد |",
-    "newUser": "زبون مسجل ؟",
+    "newUser": "عميل مسجل ؟",
     "loginAccount": "انقر هنا لتسجيل الدخول",
     "form": {
       "form-title": "تفاصيل الفواتير والشحن",

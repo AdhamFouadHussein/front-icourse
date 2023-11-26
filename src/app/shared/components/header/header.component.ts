@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   btnLang: Boolean;
-  token = false;
+  token!: boolean;
   logo!: string;
   courses: any = [];
   shopping = {
@@ -36,6 +36,10 @@ export class HeaderComponent implements OnInit {
     @Inject(DOCUMENT) private document: Document,
     public translate: TranslateService
   ) {
+
+    if (localStorage.getItem('token')) {
+      this.token = true;
+    }
     if (localStorage.getItem('curentLang') == 'ar') {
       this.btnLang = true;
     } else {
@@ -100,10 +104,10 @@ export class HeaderComponent implements OnInit {
   //   })
   // }
 
-  // logOut() {
-  //   localStorage.clear();
-  //   location.href = '/home';
-  // }
+   logOut() {
+     localStorage.clear();
+     location.href = '/login';
+  }
 
   // login() {
   //   localStorage.clear();

@@ -30,6 +30,9 @@
     "create-account": "Create account"
   },
   "register": {
+    "city":"City",
+    "addresss":"Address",
+    "phone_number":"Phone Number",
     "register": "Register New",
     "username":"Username",
     "fullName": "Full Name",

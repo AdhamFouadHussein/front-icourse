@@ -20,6 +20,7 @@ import { ChangePassComponent } from './pages/auth/change-pass/change-pass.compon
 import { UpdatePassComponent } from './pages/auth/update-pass/update-pass.component';
 import { VerificationComponent } from './pages/auth/verification/verification.component';
 import { ForgotPassComponent } from './pages/auth/forgot-pass/forgot-pass.component';
+import { AuthGuard } from './pages/auth/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -34,12 +35,12 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'contact-us', component: ContactComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', canActivate: [AuthGuard], component: ProfileComponent },
   { path: 'courses', component: CoursesComponent },
   { path: 'my-courses', component: MyCoursesComponent },
   { path: 'course-category', component: CourseCategoryComponent },
   { path: 'course-details/:id', component: CourseDetailsComponent },
-  { path: 'course-videos/:id', component: CourseVideosComponent },
+  { path: 'course-videos/:id', canActivate: [AuthGuard], component: CourseVideosComponent },
   { path: 'instructor', component: InstructorComponent },
   { path: 'blog', component: BlogComponent },
   { path: 'blog-details', component: BlogDetailsComponent },
