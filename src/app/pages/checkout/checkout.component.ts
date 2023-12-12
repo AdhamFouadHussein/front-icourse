@@ -24,9 +24,7 @@ export class CheckoutComponent implements OnInit {
  // total: number = this.cartItems.total; // The total price of the products which needs to be reflected in the other file
   listCheckout = [
     // The array of payment methods
-    { name: ' Tabby', img: '../../../assets/images/hyper.png' },
-    { name: ' Credit Card', img: '../../../assets/images/VISA-logo.svg' },
-    { name: ' بطاقة مدى البنكية', img: '../../../assets/images/MADA-logo.svg' },
+    { name: ' PAY MOB', img: 'https://www.paymob.com/en/images/paymobLogo.png' },
   ];
 
   // Declare the form group for the coupon input
