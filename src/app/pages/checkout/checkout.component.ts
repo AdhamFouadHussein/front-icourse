@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LocalStorageService } from './local-storage.service';
 import { CartInfo } from './CartInfo.model';
 import { CartService } from './cart.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -45,7 +46,8 @@ export class CheckoutComponent implements OnInit {
   // Inject the local storage service and the cart service
   constructor(
     private localStorageService: LocalStorageService,
-    private cartService: CartService
+    private cartService: CartService,
+    private http: HttpClient
   ) {}
   sumPrices(total: any): number {
     return total.reduce((acc: any, item: any) => acc + item.newPrice, 0);
@@ -71,6 +73,31 @@ export class CheckoutComponent implements OnInit {
 
   // Submit the checkout form and place the order
   checkout() {
+    const url = '/api/payment.php';
+    const options = {
+      headers: {
+        'Content-Type': 'application/json', 
+      },
+      responseType: 'text' as 'json', 
+    };
+    var data = {
+      ids:[1],
+      email: 'adham@adhamfouad.com',
+      firstName:'Adham',
+      lastName:'Hussein',
+      phone:'+201275836012',
+    };
+    this.http.post(url, data, options).subscribe(
+      (response) => {
+        // Handle the response
+        console.log(response); // log the response
+        window.location.href = response as string; // redirect to the url echoed by the server
+      },
+      (error) => {
+        // Handle the error
+        console.error(error); // log the error
+      }
+    );
     console.log(this.checkoutForm.value);
     // TODO: implement the checkout logic
   }
