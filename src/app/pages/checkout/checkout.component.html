@@ -3,8 +3,7 @@
   <div class="container">
     <nav
       class="nav-breadcrumb py-3 fs-6 fw-medium border-bottom border-light-subtle"
-      aria-label="breadcrumb"
-    >
+      aria-label="breadcrumb">
       <ol class="breadcrumb m-0">
         <li class="breadcrumb-item">
           <a routerLink="/">{{ "breadcrumb.home" | translate }}</a>
@@ -15,18 +14,22 @@
       </ol>
     </nav>
     <div class="content-page">
-      <h3
-        class="account py-4 d-flex gap-2"
-        data-aos="fade-down"
-        data-aos-duration="1000"
-      >
-        <span>{{ "checkout.noAccount" | translate }}</span>
-        <a routerLink="/register">{{
-          "checkout.registerAccount" | translate
-        }}</a>
-        <span>{{ "checkout.newUser" | translate }}</span>
-        <a routerLink="/login">{{ "checkout.loginAccount" | translate }}</a>
-      </h3>
+      <div *ngIf="!email">
+        <h3
+          class="account py-4 d-flex gap-2"
+          data-aos="fade-down"
+          data-aos-duration="1000"
+        >
+          <span>{{ "checkout.noAccount" | translate }}</span>
+          <a routerLink="/register">{{
+            "checkout.registerAccount" | translate
+          }}</a>
+          <span>{{ "checkout.newUser" | translate }}</span>
+          <a routerLink="/login">{{ "checkout.loginAccount" | translate }}</a>
+        </h3>
+      </div>
+    
+    
       <div class="content">
           <div class="col-lg-6 col-md-12" data-aos="fade-down" data-aos-duration="1000">
             <div class="request card p-4" data-aos="fade-down" data-aos-duration="1000">
@@ -49,7 +52,7 @@
                   <tbody>
                     <tr *ngFor="let item of products">
                       <td scope="row">{{ item.title }} * 1</td>
-                      <td>ج.م{{ item.price }}</td>
+                      <td>ج.م{{ item.newPrice }}</td>
                     </tr>
                   </tbody>
                   <tfoot>
@@ -64,54 +67,6 @@
                   </tfoot>
                 </table>
               </div>
-            </div>
-            <div class="coupons card my-4 p-4" data-aos="fade-down" data-aos-duration="1000">
-              <h3 class="d-flex gap-2">
-                {{ "checkout.coupons.coupon?" | translate }}
-                <a class="color" (click)="_coupon = !_coupon">{{
-                  "checkout.coupons.click-coupon" | translate
-                }}</a>
-              </h3>
-              <form [formGroup]="couponForm" class="box pt-2" *ngIf="_coupon" data-aos="fade-down" data-aos-duration="1000">
-                <h4 class="fw-bold">
-                  {{ "checkout.coupons.title-coupon" | translate }}
-                </h4>
-                <div class="coupon-input d-flex gap-2">
-                  <mat-form-field
-                    appearance="fill"
-                    class="w-75"
-                    data-aos="fade-down"
-                    data-aos-duration="1000"
-                  >
-                    <mat-label>{{
-                      "checkout.coupons.coupon" | translate
-                    }}</mat-label>
-                    <input
-                      type="text"
-                      matInput
-                      formControlName="coupon"
-                      placeholder="Ex. coupon123"
-                    />
-                    <mat-error
-                      *ngIf="couponForm.controls.coupon.errors?.['required']"
-                    >
-                      {{ "checkout.coupons.coupon" | translate }}
-                      <strong>{{
-                        "checkout.coupons.required" | translate
-                      }}</strong>
-                    </mat-error>
-                  </mat-form-field>
-                  <div class="btns">
-                    <button
-                      class="btn btn-outline-warning btn-lg"
-                      [disabled]="couponForm.invalid"
-                      (click)="coupon()"
-                    >
-                      {{ "checkout.coupons.apply" | translate }}
-                    </button>
-                  </div>
-                </div>
-              </form>
             </div>
             <div class="btn-checkout card p-4" data-aos="fade-down" data-aos-duration="1000">
               <mat-radio-group
