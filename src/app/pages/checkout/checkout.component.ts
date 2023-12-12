@@ -17,20 +17,6 @@ export class CheckoutComponent implements OnInit {
     { name: ' بطاقة مدى البنكية', img: '../../../assets/images/MADA-logo.svg' },
   ];
 
-  checkoutForm = new FormGroup({
-    name: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(50),
-    ]),
-    address: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required),
-    phone: new FormControl('', [
-      Validators.required,
-      Validators.pattern('[- +()0-9]+'),
-    ]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-  });
 
   couponForm = new FormGroup({
     coupon: new FormControl('', Validators.required),
@@ -41,7 +27,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   checkout() {
-    console.log(this.checkoutForm.value);
+   // console.log(this.checkoutForm.value);
   }
 
   constructor() {}

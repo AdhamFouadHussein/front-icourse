@@ -28,148 +28,6 @@
         <a routerLink="/login">{{ "checkout.loginAccount" | translate }}</a>
       </h3>
       <div class="content">
-        <div class="row">
-          <div class="col-lg-6 col-md-12" data-aos="fade-down" data-aos-duration="1000">
-            <div class="form card p-4">
-              <h1
-                class="fw-bold pb-4"
-                data-aos="fade-down"
-                data-aos-duration="1000"
-              >
-                {{ "checkout.form.form-title" | translate }}
-              </h1>
-              <form [formGroup]="checkoutForm">
-                <mat-form-field
-                  appearance="fill"
-                  class="w-100"
-                  data-aos="fade-down"
-                  data-aos-duration="1000"
-                >
-                  <mat-label>{{
-                    "checkout.form.fullName" | translate
-                  }}</mat-label>
-                  <input
-                    type="text"
-                    matInput
-                    formControlName="name"
-                    placeholder="Ex. John Doe"
-                  />
-                  <mat-error
-                    *ngIf="checkoutForm.controls.name.errors?.['required']"
-                  >
-                    {{ "checkout.form.fullName-is" | translate }}
-                    <strong>{{ "checkout.form.required" | translate }}</strong>
-                  </mat-error>
-                  <mat-error
-                    *ngIf="checkoutForm.controls.name.errors?.['minlength']"
-                  >
-                    {{ "checkout.form.fullNameMin" | translate }}
-                  </mat-error>
-                  <mat-error
-                    *ngIf="checkoutForm.controls.name.errors?.['maxlength']"
-                  >
-                    {{ "checkout.form.fullNameMax" | translate }}
-                  </mat-error>
-                </mat-form-field>
-
-                <mat-form-field
-                  appearance="fill"
-                  class="w-100"
-                  data-aos="fade-down"
-                  data-aos-duration="1000"
-                >
-                  <mat-label>{{
-                    "checkout.form.addressLabel" | translate
-                  }}</mat-label>
-                  <input
-                    type="text"
-                    matInput
-                    formControlName="address"
-                    placeholder="{{ 'checkout.form.addressLabel' | translate }}"
-                  />
-                  <mat-error
-                    *ngIf="checkoutForm.controls.address.errors?.['required']"
-                  >
-                    {{ "checkout.form.address" | translate }}
-                    <strong>{{ "checkout.form.required" | translate }}</strong>
-                  </mat-error>
-                </mat-form-field>
-
-                <mat-form-field
-                  appearance="fill"
-                  class="w-100"
-                  data-aos="fade-down"
-                  data-aos-duration="1000"
-                >
-                  <mat-label>{{ "checkout.form.city" | translate }}</mat-label>
-                  <input
-                    type="text"
-                    matInput
-                    formControlName="city"
-                    placeholder="Ex. cairo"
-                  />
-                  <mat-error
-                    *ngIf="checkoutForm.controls.city.errors?.['required']"
-                  >
-                    {{ "checkout.form.city" | translate }}
-                    <strong>{{ "checkout.form.required" | translate }}</strong>
-                  </mat-error>
-                </mat-form-field>
-
-                <mat-form-field
-                  appearance="fill"
-                  class="w-100"
-                  data-aos="fade-down"
-                  data-aos-duration="1000"
-                >
-                  <mat-label>{{ "checkout.form.phone" | translate }}</mat-label>
-                  <input
-                    type="text"
-                    matInput
-                    formControlName="phone"
-                    placeholder="Ex. +201010101010"
-                  />
-                  <mat-error
-                    *ngIf="checkoutForm.controls.phone.errors?.['required']"
-                  >
-                    {{ "checkout.form.phone" | translate }}
-                    <strong>{{ "checkout.form.required" | translate }}</strong>
-                  </mat-error>
-                  <mat-error
-                    *ngIf="checkoutForm.controls.phone.errors?.['pattern']"
-                  >
-                    {{ "checkout.form.phone-pattern" | translate }}
-                  </mat-error>
-                </mat-form-field>
-
-                <mat-form-field
-                  appearance="fill"
-                  class="w-100"
-                  data-aos="fade-down"
-                  data-aos-duration="1000"
-                >
-                  <mat-label>{{ "checkout.form.email" | translate }}</mat-label>
-                  <input
-                    type="email"
-                    matInput
-                    formControlName="email"
-                    placeholder="Ex. example@mail.com"
-                  />
-                  <mat-error
-                    *ngIf="checkoutForm.controls.email.errors?.['required']"
-                  >
-                    {{ "checkout.form.email" | translate }}
-                    <strong>{{ "checkout.form.required" | translate }}</strong>
-                  </mat-error>
-                  <mat-error
-                    *ngIf="checkoutForm.controls.email.errors?.['email']"
-                  >
-                    {{ "checkout.form.emailAddress" | translate }}
-                  </mat-error>
-                </mat-form-field>
-              </form>
-            </div>
-          </div>
           <div class="col-lg-6 col-md-12" data-aos="fade-down" data-aos-duration="1000">
             <div class="request card p-4" data-aos="fade-down" data-aos-duration="1000">
               <h1 class="fw-bold pb-4"
@@ -191,17 +49,17 @@
                   <tbody>
                     <tr *ngFor="let item of products">
                       <td scope="row">{{ item.title }} * 1</td>
-                      <td>ر.س{{ item.price }}</td>
+                      <td>ج.م{{ item.price }}</td>
                     </tr>
                   </tbody>
                   <tfoot>
                     <tr>
                       <th>{{ "checkout.table.subTotal" | translate }}</th>
-                      <td>ر.س{{ total }}</td>
+                      <td>ج.م{{ total }}</td>
                     </tr>
                     <tr>
                       <th>{{ "checkout.table.total" | translate }}</th>
-                      <td>ر.س{{ total }}</td>
+                      <td>ج.م{{ total }}</td>
                     </tr>
                   </tfoot>
                 </table>
@@ -269,12 +127,11 @@
                 </mat-radio-button>
               </mat-radio-group>
               <div class="btns">
-                <button class="btn btn-outline-success w-100" [disabled]="checkoutForm.invalid" (click)="checkout()">{{'checkout.confirmation' | translate}}</button>
+                <button class="btn btn-outline-success w-100"  (click)="checkout()">{{'checkout.confirmation' | translate}}</button>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 </section>
