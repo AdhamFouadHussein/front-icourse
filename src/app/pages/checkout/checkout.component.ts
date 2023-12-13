@@ -5,6 +5,10 @@ import { LocalStorageService } from './local-storage.service';
 import { CartInfo } from './CartInfo.model';
 import { CartService } from './cart.service';
 import { HttpClient } from '@angular/common/http';
+interface ResponseObject {
+  url: string;
+  // other properties...
+}
 
 
 @Component({
@@ -13,6 +17,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent implements OnInit {
+  isLoading:boolean = false;
   products:any;
   total: any;
   __coupon = false;
@@ -73,32 +78,31 @@ export class CheckoutComponent implements OnInit {
 
   // Submit the checkout form and place the order
   checkout() {
-    const url = '/api/payment.php';
+    const url = 'http://alkhabeer.unaux.com/payment.php';
     const options = {
       headers: {
         'Content-Type': 'application/json', 
       },
-      responseType: 'text' as 'json', 
+      responseType: 'json' as 'json', 
     };
-    var data = {
+    const data = {
       ids:[1],
       email: 'adham@adhamfouad.com',
       firstName:'Adham',
       lastName:'Hussein',
       phone:'+201275836012',
     };
-    this.http.post(url, data, options).subscribe(
+    this.isLoading = true;
+    this.http.post<{ url: string }>(url, data, options).subscribe(
       (response) => {
-        // Handle the response
-        console.log(response); // log the response
-        window.location.href = response as string; // redirect to the url echoed by the server
+        console.log(response.url); // log the response
+        window.location.replace(response.url); // redirect to the url echoed by the server
       },
       (error) => {
-        // Handle the error
-        console.error(error); // log the error
+        console.error('Error:', error); // log the error if any
       }
-    );
-    console.log(this.checkoutForm.value);
+    );    
+  //  console.log(this.checkoutForm.value);
     // TODO: implement the checkout logic
   }
 }
