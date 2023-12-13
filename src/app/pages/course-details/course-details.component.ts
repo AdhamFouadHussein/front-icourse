@@ -79,12 +79,15 @@ export class CourseDetailsComponent implements OnInit {
       });
     }
   }
-
   addToCart() {
-    this.courses.push(this.course);
-    this.auth.shopp.next(this.courses);
-    setTimeout(() => {
-      localStorage.setItem('courses', JSON.stringify(this.courses));
-    }, 1000);
+    // Get the existing courses from local storage
+    let storedCourses = localStorage.getItem('courses');
+    let existingCourses = storedCourses ? JSON.parse(storedCourses) : [];    
+    // Add the current course to the array
+    existingCourses.push(this.course);
+    // Update the BehaviorSubject and local storage
+    this.auth.shopp.next(existingCourses);
+    localStorage.setItem('courses', JSON.stringify(existingCourses));
   }
+
 }
