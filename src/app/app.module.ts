@@ -87,7 +87,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     SharedModule,
 
     TranslateModule.forRoot({
-      defaultLanguage: 'en',
+      defaultLanguage: 'ar',
       loader: {
         provide: TranslateLoader,
         useFactory: createTranslateLoader,
