@@ -53,26 +53,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+
   changeLanguage(lang: string) {
+    lang = 'ar';
     localStorage.setItem('curentLang', lang);
     this.translate.use(lang);
-    if (lang == 'en') {
-      // location.reload();
-      this.document.getElementsByTagName('html')[0].lang = 'en';
-      this.document.getElementsByTagName('html')[0].dir = 'ltr';
-      // this.document
-      //   .getElementById('Appcontainer')
-      //   ?.classList.remove('is-rtl');
-      this.btnLang = false;
-      // setTimeout(() => {
-      //   this.document.getElementsByTagName('html')[0].lang = 'en';
-      //   this.document.getElementsByTagName('html')[0].dir = 'ltr';
-      //   this.document
-      //     .getElementById('Appcontainer')
-      //     ?.classList.remove('is-rtl');
-      //   this.btnLang = false;
-      // }, 1000);
-    } else if (lang == 'ar') {
+
       // location.reload();
       this.document.getElementsByTagName('html')[0].lang = 'ar';
       this.document.getElementsByTagName('html')[0].dir = 'rtl';
@@ -84,7 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       //   this.document.getElementById('Appcontainer')?.classList.add('is-rtl');
       //   this.btnLang = true;
       // }, 1000);
-    }
+    
   }
 
   // checkUser() {
