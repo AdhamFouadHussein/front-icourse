@@ -30,6 +30,7 @@
     "create-account": "إنشاء حساب"
   },
   "register": {
+    "username":"أسم المستخدم",
     "register": "مستخدم جديد",
     "fullName": "الإسم مطلوب",
     "fullName-is": "الإسم ",
@@ -39,10 +40,10 @@
     "email": "البريد الالكتروني",
     "email-is": "البريد الالكتروني ",
     "emailAddress": "يرجى تقديم عنوان بريد إلكتروني صالح",
-    "phone": "رقم الهاتف",
+    "phone_number": "رقم الهاتف",
     "phone-is": "رقم الهاتف ",
     "phone-pattern": "يرجى إدخال رقم هاتف صحيح",
-    "address": "العنوان مطلوب",
+    "addresss": "العنوان",
     "password": "كلمة المرور",
     "password-is": "كلمة المرور",
     "password-pattern": "قم بإنشاء كلمة مرور تطابق النمط التالي: 6 أحرف على الأقل (A-b- @)",
@@ -51,7 +52,8 @@
     "confirm-the": "تأكيد كلمة المرور مختلفة",
     "register-now": "سجل الان",
     "i-a-member": "أنا عضو",
-    "sign-in-now": "تسجيل الدخول"
+    "sign-in-now": "تسجيل الدخول",
+    "city":"المدينة"
   },
   "change-pass": {
     "change-pass": "تغير كلمة السر",
