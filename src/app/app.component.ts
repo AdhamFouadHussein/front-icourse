@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
   textDir: any;
-  lang: string = 'en'
+  lang: string = 'ar'
   curentLang: any;
 
   constructor(private router: Router,
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     //Change Lang:
-    this.curentLang = localStorage.getItem('curentLang') || 'en';
+    this.curentLang = localStorage.getItem('curentLang') || 'ar';
     this.translate.use(this.curentLang);
     if (this.curentLang == "en") {
       this.document.getElementsByTagName('html')[0].lang = 'en';
