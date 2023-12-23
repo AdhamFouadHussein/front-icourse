@@ -49,17 +49,17 @@
                   <tbody>
                     <tr *ngFor="let item of products">
                       <td scope="row">{{ item.title }} * 1</td>
-                      <td>ج.م{{ item.newPrice }}</td>
+                      <td>ر.س{{ item.newPrice }}</td>
                     </tr>
                   </tbody>
                   <tfoot>
                     <tr>
                       <th>{{ "checkout.table.subTotal" | translate }}</th>
-                      <td>ج.م{{ total }}</td>
+                      <td>ر.س{{ total }}</td>
                     </tr>
                     <tr>
                       <th>{{ "checkout.table.total" | translate }}</th>
-                      <td>ج.م{{ total }}</td>
+                      <td>ر.س{{ total }}</td>
                     </tr>
                   </tfoot>
                 </table>
