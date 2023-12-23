@@ -25,7 +25,7 @@ export class CheckoutComponent implements OnInit {
   phoneNumber: string = localStorage.getItem('phone_number') || '';
   listCheckout = [
     // The array of payment methods
-    { name: ' PAY MOB', img: 'https://www.paymob.com/en/images/paymobLogo.png' },
+    { name: ' HYPER PAY', img: 'https://www.hyperpay.com/wp-content/uploads/2022/10/Hyperpay-logo-svg-1.png' },
   ];
 
   constructor(public auth: AuthService, private route: ActivatedRoute, private http: HttpClient) {}
@@ -42,32 +42,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   checkout() {
-    const ids = this.products.map((course: { id: any; }) => course.id);
-    const url = 'http://alkhabir.co/payment.php';
-    const options = {
-      headers: {
-        'Content-Type': 'application/json', 
-      },
-      responseType: 'json' as 'json', 
-    };
-    const data = {
-      ids: ids,
-      email: this.email,
-      firstName: this.firstName,
-      lastName: "‎ ",
-      phone: this.phoneNumber,
-    };
-    this.isLoading = true;
-    this.http.post<{ url: string }>(url, data, options).subscribe(
-      (response) => {
-        console.log(response.url);
-        window.location.replace(response.url);
-        this.isLoading = false;
-      },
-      (error) => {
-        console.error('Error:', error);
-        this.isLoading = false;
-      }
-    );    
+    window.location.href = 'https://alkhabir.co/pay.php?total=' + encodeURIComponent(this.total);
   }
+  
 }
