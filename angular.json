@@ -33,7 +33,8 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/boxicons/css/boxicons.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/style.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js",

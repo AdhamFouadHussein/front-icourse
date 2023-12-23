@@ -19,7 +19,7 @@ body {
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: MyFont, "Helvetica Neue", sans-serif;
 }
 
 h1,
@@ -157,3 +157,6 @@ a {
 .mat-mdc-tab-header {
   direction: ltr !important;
 }
+::ng-deep body {
+  font-family: 'Calibri', sans-serif;
+  }
