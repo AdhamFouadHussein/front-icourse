@@ -1,5 +1,5 @@
 <section>
-  <banner [title]="'الرسم الهندسي'"></banner>
+  <banner [title]=course.category></banner>
   <div class="container">
     <nav class="nav-breadcrumb py-3 fs-6 fw-medium border-bottom border-light-subtle" aria-label="breadcrumb">
       <ol class="breadcrumb m-0">
@@ -100,8 +100,7 @@
         <div class="col-xl-7 col-lg-7 col-md-12">
           <div class="tab-right" data-aos="fade-down" data-aos-duration="1000">
             <div class="details" data-aos="fade-down" data-aos-duration="1000">
-              <p class="mb-4">{{course.longdescr}}</p>
-             
+              <div [innerHTML]="course.longdescr"></div>
             </div>
             <mat-accordion data-aos="fade-down" data-aos-duration="1000">
               <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
