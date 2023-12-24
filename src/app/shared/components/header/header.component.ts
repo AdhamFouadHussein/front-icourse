@@ -1,5 +1,5 @@
 // header.component.ts
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, SimpleChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router'; // import the Router service
@@ -16,6 +16,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   token!: boolean;
   logo!: string;
   courses: any = [];
+  private _total = 0; // initialize your total here
+  isBouncing = false;
+
+  get total() {
+    return this._total;
+  }
+
+  set total(value) {
+    this._total = value;
+    this.isBouncing = true;
+    setTimeout(() => this.isBouncing = false, 2000); // stop bouncing after 2 seconds
+  }
   shopping = {
     products: [
       {
@@ -28,7 +40,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     total: 500,
   };
 
-  total: any;
+
 
   sumNumbers(courses: any): number {
     return courses.reduce((acc: any, item: any) => acc + item.newPrice, 0);

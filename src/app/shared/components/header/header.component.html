@@ -55,7 +55,7 @@
     </div>
     <div class="icons">
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-        <li class="nav-item">
+        <li class="nav-item" [ngClass]="{'bounce': isBouncing}">
           <a class="nav-link d-flex align-items-center gap-1" data-bs-toggle="offcanvas" href="#offcanvasExample"
             role="button" aria-controls="offcanvasExample">
             <h4 style="font-size: 20px;">
@@ -65,7 +65,7 @@
             <i class="bx bxs-cart-alt fs-6" [matBadge]="shopping.products.length" matBadgeSize="small"
               matBadgeColor="warn"></i>
           </a>
-        </li>
+        </li>        
         <li class="nav-item">
           <a *ngIf="token" class="nav-link" (click)="logOut()" >
             <i class='bx bx-log-out'></i>
@@ -112,7 +112,7 @@
     </div>
     <div class="total text-center p-4 border-bottom" *ngIf="shopping.products.length != 0">
       <h1 class="fs-3" style="font-size: 16px;">المجموع: ر.س{{ total }}</h1>
-    </div>
+    </div>    
     <div class="btns d-flex p-3 justify-content-around align-items-center" *ngIf="shopping.products.length != 0">
       <button class="btn btn-dark" routerLink="/checkout">عرض السلة</button>
       <button class="btn btn-dark" routerLink="/checkout">إتمام الطلب</button>

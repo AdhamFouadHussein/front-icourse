@@ -39,3 +39,12 @@ nav {
   display: inline-block;
   line-height: 0;
 }
+.bounce {
+  animation: bounce 2s;
+}
+
+@keyframes bounce {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
