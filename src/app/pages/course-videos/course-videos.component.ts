@@ -12,6 +12,7 @@ export interface VideoDetail {
   linkUrl: string;
   fileName: string;
   fileUrl: string;
+  videoTitle: string;
 }
 
 export interface CourseData {
@@ -23,7 +24,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getData(id: String) {
-    return this.http.get<CourseData[]>(`http://localhost:3000/api.php/courses/${id}`);
+    return this.http.get<CourseData[]>(`https://alkhabir.co/api.php/courses/${id}`);
   }
 }
 
@@ -49,7 +50,7 @@ export class CourseVideosComponent implements OnInit {
         this.dataService.getData(id).subscribe((data: CourseData[]) => {
           this.videoDetails = JSON.parse(data[0].lessons_list) as VideoDetail[];
           this.curr_video_url = this.videoDetails[0].videoUrl;
-          this.curr_video_name = this.videoDetails[0].videoName;
+          this.curr_video_name = this.videoDetails[0].videoTitle;
         });
       }
       
@@ -59,7 +60,7 @@ export class CourseVideosComponent implements OnInit {
       for (let video of this.videoDetails) {
         if (video.id === vid_id) {
           this.curr_video_url = video.videoUrl;
-          this.curr_video_name = video.videoName;
+          this.curr_video_name = video.videoTitle;
           break;
         }
       }
