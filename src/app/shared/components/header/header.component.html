@@ -58,7 +58,7 @@
         <li class="nav-item">
           <a class="nav-link d-flex align-items-center gap-1" data-bs-toggle="offcanvas" href="#offcanvasExample"
             role="button" aria-controls="offcanvasExample">
-            <h4>
+            <h4 style="font-size: 20px;">
               <span>ر.س</span>
               <span>{{ total }}</span>
             </h4>
@@ -96,7 +96,7 @@
           <img [src]="item.img" loading="lazy" alt="product" height="90" />
         </a>
       </div>
-      <div class="product-details px-2 w-100">
+      <div class="product-details px-2 w-100" style="font-size: 18px;">
         <div class="title">
           <a routerLink="/course-details">
             <h2 class="text-primary pb-4">{{ item.title }}</h2>
@@ -111,7 +111,7 @@
       </div>
     </div>
     <div class="total text-center p-4 border-bottom" *ngIf="shopping.products.length != 0">
-      <h1 class="fs-3 fw-bold">المجموع: ر.س{{ total }}</h1>
+      <h1 class="fs-3" style="font-size: 16px;">المجموع: ر.س{{ total }}</h1>
     </div>
     <div class="btns d-flex p-3 justify-content-around align-items-center" *ngIf="shopping.products.length != 0">
       <button class="btn btn-dark" routerLink="/checkout">عرض السلة</button>

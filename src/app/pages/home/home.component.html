@@ -22,7 +22,7 @@
     <!--  <h1 class="color mb-2 fw-bold" data-aos="fade-down" data-aos-duration="1000">دورات الرسم الهندسي</h1> -->
       <div class="cards" data-aos="fade-down" data-aos-duration="1000">
         <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6" [routerLink]="['/course-details', item.id]" *ngFor="let item of courses" data-aos="fade-down" data-aos-duration="1000">
+          <div class="col-lg-4 col-md-6 col-sm-6" [routerLink]="['/course-details', item.id]" *ngFor="let item of courses" data-aos="fade-down" data-aos-duration="1000">
             <card [img]="item.img" [logo]="item.logo" [name]="item.name" [title]="item.title" [price]="item.price" [newPrice]="item.newPrice" [sub]="item.sub"></card>
           </div>
         </div>

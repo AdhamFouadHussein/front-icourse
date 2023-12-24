@@ -19,16 +19,16 @@
               <mat-tab label="{{'course-details.content' | translate}}">
                 <ng-template matTabContent>
                   <div class="details-top bg-body-secondary p-2 w-100 d-flex justify-content-between">
-                    <h4 class="fw-bold">#</h4>
-                    <h4 class="fw-bold">Name</h4>
-                    <h4 class="fw-bold">duration</h4>
+                    <h4 class="fw-bold" style="font-size: 20px;">#</h4>
+                    <h4 class="fw-bold" style="font-size: 20px;">العنوان</h4>
+                    <h4 class="fw-bold" style="font-size: 20px;">المدة</h4>
                   </div>
                   <div class="details" style="max-height: 455px;" data-aos="fade-down" data-aos-duration="1000" >
                     <div class="tab px-2 py-2" *ngFor="let item of videoDetails">
                       <a class="w-100 d-flex justify-content-between" (click)="setId(item.id)">
-                        <h4>{{item.id}}</h4>
-                        <h4>{{item.videoTitle}}</h4>
-                        <h4>{{item.duration}}</h4>
+                        <h4 style="font-size: 18px;">{{item.id}}</h4>
+                        <h4 style="font-size: 18px;">{{item.videoTitle}}</h4>
+                        <h4 style="font-size: 18px;">{{item.duration}}</h4>
                       </a>
                     </div>
                   </div>
