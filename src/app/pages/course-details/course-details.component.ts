@@ -20,6 +20,10 @@ export class DataService {
   getData(id: String) {
     return this.http.get(`https://alkhabir.co/api.php/courses/${id}`);
   }
+  getAllData() {
+    return this.http.get('https://alkhabir.co/api.php/courses');
+  }
+  
 }
 
 export interface VideoDetail {
@@ -38,7 +42,7 @@ export class CourseDetailsComponent implements OnInit {
 
   recommended: any = [];
   course: any; // This object will be populated with data from the API
-  courses: any = [];
+  courses: any;
   courseVideo: any = [];
   videoDetails: VideoDetail[] = [];
   curr_video_title: string = '';
@@ -73,10 +77,23 @@ export class CourseDetailsComponent implements OnInit {
             break;
         }
         //TODO: Write a switch case for level ...
-
-        // Push the course to the 'recommended' array
-        this.recommended.push(this.course);
+        
+      
+        
       });
+      this.dataService.getAllData().subscribe((data: any) => {
+        this.courses = data;
+        console.log(data);
+        // Push the course to the 'recommended' array
+       // Filter out the course with the same id as the currently opened course
+        const filteredCourses = this.courses.flat().filter((course: { id: string; }) => course.id !== id);
+        // Shuffle the array
+        filteredCourses.sort(() => Math.random() - 0.5);
+        // Get the first 3 courses
+        const randomCourses = filteredCourses.slice(0, 3);
+        // Push all random courses to the 'recommended' array
+        this.recommended.push(...randomCourses);
+            });
     }
   }
   addToCart() {
