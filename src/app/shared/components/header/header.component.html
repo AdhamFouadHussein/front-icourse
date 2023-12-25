@@ -93,15 +93,15 @@
     <div class="product border-bottom py-2 d-flex" *ngFor="let item of shopping.products; let i = index">
       <div class="image">
         <a routerLink="/course-details">
-          <img [src]="item.img" loading="lazy" alt="product" height="90" />
+          <img [src]="item.img" loading="lazy" alt="product" height="60" />
         </a>
       </div>
-      <div class="product-details px-2 w-100" style="font-size: 18px;">
+      <div class="product-details px-3 w-80" style="font-size: 18px;">
         <div class="title">
           <a routerLink="/course-details">
-            <h2 class="text-primary pb-4">{{ item.title }}</h2>
+            <h2 class="text-primary pb-4" style="font-size: 20px;">{{ item.title }}</h2>
           </a>
-          <h3 class="text-muted">
+          <h3 class="text-muted" style="font-size: 18px;">
             {{ item.quantity }} × <span>ر.س{{ item.newPrice }}</span>
           </h3>
         </div>
@@ -111,7 +111,7 @@
       </div>
     </div>
     <div class="total text-center p-4 border-bottom" *ngIf="shopping.products.length != 0">
-      <h1 class="fs-3" style="font-size: 16px;">المجموع: ر.س{{ total }}</h1>
+      <h1 class="fs-4" style="font-size: 16px;">المجموع: ر.س{{ total }}</h1>
     </div>    
     <div class="btns d-flex p-3 justify-content-around align-items-center" *ngIf="shopping.products.length != 0">
       <button class="btn btn-dark" data-bs-dismiss="offcanvas" routerLink="/checkout">عرض السلة</button>
