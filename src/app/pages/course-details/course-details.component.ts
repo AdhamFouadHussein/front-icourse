@@ -18,7 +18,7 @@ export class DataService {
   constructor(private http: HttpClient) {}
 
   getData(id: String) {
-    return this.http.get(`http://localhost:3000/api.php/courses/${id}`);
+    return this.http.get(`https://alkhabir.co/api.php/courses/${id}`);
   }
 }
 
@@ -83,11 +83,21 @@ export class CourseDetailsComponent implements OnInit {
     // Get the existing courses from local storage
     let storedCourses = localStorage.getItem('courses');
     let existingCourses = storedCourses ? JSON.parse(storedCourses) : [];    
-    // Add the current course to the array
-    existingCourses.push(this.course);
-    // Update the BehaviorSubject and local storage
-    this.auth.shopp.next(existingCourses);
-    localStorage.setItem('courses', JSON.stringify(existingCourses));
-  }
+
+    // Check if the course already exists in the array
+    let courseExists = existingCourses.some((existingCourse: { id: any; }) => existingCourse.id === this.course.id);
+
+    if (courseExists) {
+        // If the course already exists, show an alert
+        alert('تم إضافته من قبل');
+    } else {
+        // If the course doesn't exist, add it to the array
+        existingCourses.push(this.course);
+        // Update the BehaviorSubject and local storage
+        this.auth.shopp.next(existingCourses);
+        localStorage.setItem('courses', JSON.stringify(existingCourses));
+    }
+}
+
 
 }
