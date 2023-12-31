@@ -6,7 +6,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getData() {
-    return this.http.get('http://localhost:3000/api.php/courses');
+    return this.http.get('https://alkhabir.co/api.php/courses');
   }
 }
 

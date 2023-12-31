@@ -34,10 +34,10 @@ export class AuthService {
   // }
 
   login(userData: any) {
-    return this.http.post('http://localhost:3000/login.php', userData);
+    return this.http.post('https://alkhabir.co/login.php', userData);
   }
 
   register(userData: any) {
-    return this.http.post('http://localhost:3000/register.php', userData);
+    return this.http.post('https://alkhabir.co/register.php', userData);
   }
 }
