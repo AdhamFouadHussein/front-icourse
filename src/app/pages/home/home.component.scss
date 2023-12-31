@@ -57,3 +57,7 @@ section {
     width: 350px !important;
   }
 }
+.custom-card {
+  max-width: 50%; // Adjust this value to your preference
+  margin: 0 auto; // This will center the cards
+}
