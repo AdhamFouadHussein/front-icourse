@@ -102,7 +102,7 @@
               <p [innerHTML]="course.longdescr"></p>
             </div>
             <mat-accordion data-aos="fade-down" data-aos-duration="1000">
-              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
                 <mat-expansion-panel-header>
                   <mat-panel-title class="d-flex justify-content-between">
                     <div style="font-size: 20px;">
@@ -129,6 +129,7 @@
                 </mat-panel-description>
               </mat-expansion-panel>
             </mat-accordion>
+            
             <div class="card border-1 mt-4 w-100" data-aos="fade-down" data-aos-duration="1000">
               <div class="card-title">
                 <h1 class="px-3 py-2 fw-bold" style="font-size: 20px;">المدرب</h1>
