@@ -84,7 +84,7 @@
   },
   "checkout": {
     "noAccount": "ليس لديك حساب ؟",
-    "registerAccount": "انقر هنا لتسجيل حساب جديد |",
+    "registerAccount": "انقر هنا لتسجيل حساب جديد ",
     "newUser": "عميل مسجل ؟",
     "loginAccount": "انقر هنا لتسجيل الدخول",
     "form": {

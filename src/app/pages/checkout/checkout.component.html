@@ -14,18 +14,18 @@
       </ol>
     </nav>
     <div class="content-page">
-      <div *ngIf="!isLoggedIn">
+      <div *ngIf="!isLoggedIn" class="noAccount">
         <h3
           class="account py-4 d-flex gap-2"
           data-aos="fade-down"
           data-aos-duration="1000"
         >
-          <span>{{ "checkout.noAccount" | translate }}</span>
-          <a routerLink="/register">{{
+          <span style="font-size: 18px;">{{ "checkout.noAccount" | translate }}</span>
+          <a style="font-size: 20px;" routerLink="/register">{{
             "checkout.registerAccount" | translate
           }}</a>
-          <span>{{ "checkout.newUser" | translate }}</span>
-          <a routerLink="/login">{{ "checkout.loginAccount" | translate }}</a>
+          <span style="font-size: 18px;">| {{ "checkout.newUser" | translate }}</span>
+          <a style="font-size: 20px;" routerLink="/login">{{ "checkout.loginAccount" | translate }}</a>
         </h3>
       </div>
       <div class="content">

@@ -24,4 +24,28 @@ section {
       }
     }
   }
+  .content-page {
+    .content {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+
+      .col-lg-6 {
+        display: flex;
+        flex-direction: column;
+        gap: 20px; // Adjust this value to set the gap between the cards
+
+        .card {
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+    .noAccount{
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+    }
+  }
 }
