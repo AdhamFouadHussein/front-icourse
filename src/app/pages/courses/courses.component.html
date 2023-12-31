@@ -42,11 +42,11 @@
         <div class="col-12">
           <div class="cards" data-aos="fade-down" data-aos-duration="1000">
             <div class="row" *ngIf="grid">
-              <div class="col-lg-4 col-md-6 col-sm-12" [routerLink]="['/course-details', item.id]" *ngFor="let item of courses" data-aos="fade-down" data-aos-duration="1000">
+              <div class="col-lg-4 col-md-6 col-sm-12 custom-card" [routerLink]="['/course-details', item.id]" *ngFor="let item of courses" data-aos="fade-down" data-aos-duration="1000">
                 <card [img]="item.img" [logo]="item.logo" [name]="item.name" [title]="item.title" [price]="item.price"
                   [newPrice]="item.newPrice" [sub]="item.sub"></card>
-                </div>
               </div>
+            </div>
               <!-- <div class="grid" *ngIf="!grid">
                 <div *ngFor="let item of courses" data-aos="fade-down" data-aos-duration="1000">
                   <card-grid [img]="item.img" [logo]="item.logo" [name]="item.name" [title]="item.title" [price]="item.price"
