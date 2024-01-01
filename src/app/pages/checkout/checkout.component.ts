@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { ReloadService } from 'src/app/shared/services/reload.service';
 
 export interface ResponseObject {
   url: string;
@@ -28,7 +29,7 @@ export class CheckoutComponent implements OnInit {
     { name: ' HYPER PAY', img: 'https://www.hyperpay.com/wp-content/uploads/2022/10/Hyperpay-logo-svg-1.png' },
   ];
 
-  constructor(public auth: AuthService, private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(public auth: AuthService, private route: ActivatedRoute, private http: HttpClient, private reloadService: ReloadService) {}
 
   ngOnInit(): void {
     this.getShopping();
@@ -49,5 +50,6 @@ export class CheckoutComponent implements OnInit {
     this.products.splice(i, 1);
     localStorage.setItem('courses', JSON.stringify(this.products));
     this.getShopping(); // call the getShopping method to update the total
+    this.reloadService.triggerReload(true);
   }
 }

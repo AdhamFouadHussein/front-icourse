@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router'; // import the Router service
 import { Subscription } from 'rxjs'; // import the Subscription type
 import { DOCUMENT } from '@angular/common';
+import { ReloadService } from '../../services/reload.service';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,7 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  reloadSubscription: Subscription | undefined;
   btnLang: Boolean;
   token!: boolean;
   logo!: string;
@@ -49,6 +51,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   shoppSubscription!: Subscription// declare a subscription property
 
   constructor(
+    private reloadService: ReloadService,
     private auth: AuthService,
     @Inject(DOCUMENT) private document: Document,
     public translate: TranslateService,
@@ -146,9 +149,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.getShopping(); // call the getShopping method to get the products and the total from the localStorage
     //   this.checkUser();
     //   this.getLogo();
+    this.reloadSubscription = this.reloadService.reloadObservable.subscribe((value: boolean) => {
+      if (value) {
+        this.getShopping();
+      }
+    });
   }
 
   ngOnDestroy(): void {
     this.shoppSubscription.unsubscribe(); // unsubscribe from the observable when the component is destroyed
+    if (this.reloadSubscription) {
+      this.reloadSubscription.unsubscribe();
+    }
   }
 }
