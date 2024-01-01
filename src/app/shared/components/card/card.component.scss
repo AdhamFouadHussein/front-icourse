@@ -10,7 +10,7 @@
       }
 
       .btn {
-        transform: scale(1);
+       // transform: scale(1);
         opacity: 1;
       }
     }
@@ -36,19 +36,24 @@
 
   .card-img-top {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     img {
       transition: var(--main-transition);
     }
 
     .btn {
-      transition: var(--main-transition);
-      position: absolute;
-      inset-inline-start: 34%;
-      inset-block-start: 40%;
-      transform: scale(1.1);
       opacity: 0;
+      transition: opacity 0.3s ease;
+      position: absolute !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
     }
+    
+    
   }
 
   .card-body {
