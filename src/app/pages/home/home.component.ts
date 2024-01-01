@@ -18,6 +18,7 @@ export class DataService {
 })
 export class HomeComponent {
   courses: any = [];
+  grid = true;
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
