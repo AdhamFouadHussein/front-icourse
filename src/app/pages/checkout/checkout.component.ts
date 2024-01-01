@@ -44,5 +44,10 @@ export class CheckoutComponent implements OnInit {
   checkout() {
     window.location.href = 'https://alkhabir.co/pay.php?total=' + encodeURIComponent(this.total);
   }
-  
+  deleteCourse(i: any) {
+    console.log(i);
+    this.products.splice(i, 1);
+    localStorage.setItem('courses', JSON.stringify(this.products));
+    this.getShopping(); // call the getShopping method to update the total
+  }
 }

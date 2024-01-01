@@ -1,9 +1,7 @@
 <section>
   <banner [title]="'banner.checkout' | translate"></banner>
   <div class="container">
-    <nav
-      class="nav-breadcrumb py-3 fs-6 fw-medium border-bottom border-light-subtle"
-      aria-label="breadcrumb">
+    <nav class="nav-breadcrumb py-3 fs-6 fw-medium border-bottom border-light-subtle" aria-label="breadcrumb">
       <ol class="breadcrumb m-0">
         <li class="breadcrumb-item">
           <a routerLink="/">{{ "breadcrumb.home" | translate }}</a>
@@ -13,80 +11,95 @@
         </li>
       </ol>
     </nav>
-    <div class="content-page">
-      <div *ngIf="!isLoggedIn" class="noAccount">
-        <h3
-          class="account py-4 d-flex gap-2"
-          data-aos="fade-down"
-          data-aos-duration="1000"
-        >
+    
+    <div class="content-page"style="display: grid; grid-template-columns: 4fr 1fr;">
+            <div class="details-body">
+        <div class="product border-bottom py-2 d-flex" *ngFor="let item of products; let i = index">
+          <div class="image">
+            <a routerLink="/course-details">
+              <img [src]="item.img" loading="lazy" alt="product" height="60" />
+            </a>
+          </div>
+          <div class="product-details px-3 w-80" style="font-size: 18px;">
+            <div class="title">
+              <a routerLink="/course-details">
+                <h2 class="text-primary pb-4" style="font-size: 20px;">{{ item.title }}</h2>
+              </a>
+              <h3 class="text-muted" style="font-size: 18px;">
+               <span>ر.س{{ item.newPrice }}</span>
+              </h3>
+            </div>
+          </div>
+          <div class="close">
+            <i class="bx bx-x fs-4" (click)="deleteCourse(i)"></i>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!isLoggedIn" class="noAccount" [ngStyle]="{'order': isLoggedIn ? '0' : '1'}">
+        <h3 class="account py-4 d-flex gap-2" data-aos="fade-down" data-aos-duration="1000">
           <span style="font-size: 18px;">{{ "checkout.noAccount" | translate }}</span>
           <a style="font-size: 20px;" routerLink="/register">{{
-            "checkout.registerAccount" | translate
-          }}</a>
+            "checkout.registerAccount" | translate}}</a>
           <span style="font-size: 18px;">| {{ "checkout.newUser" | translate }}</span>
           <a style="font-size: 20px;" routerLink="/login">{{ "checkout.loginAccount" | translate }}</a>
         </h3>
       </div>
-      <div class="content">
-          <div class="col-lg-6 col-md-12" data-aos="fade-down" data-aos-duration="1000">
-            <div class="request card p-4" data-aos="fade-down" data-aos-duration="1000">
-              <h1 class="fw-bold pb-4" style="font-size: 28px;">
-                {{ "checkout.table.table-title" | translate }}
-              </h1>
-              <div class="table py-2">
-                <table class="table table-hover table-bordered">
-                  <thead>
-                    <tr style="font-size: 22px;">
-                      <th scope="col">
-                        {{ "checkout.table.product" | translate }}
-                      </th>
-                      <th scope="col">
-                        {{ "checkout.table.price" | translate }}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody style="font-size: 20px;">
-                    <tr *ngFor="let item of products">
-                      <td scope="row">{{ item.title }} * 1</td>
-                      <td>ر.س{{ item.newPrice }}</td>
-                    </tr>
-                  </tbody>
-                  <tfoot style="font-size: 18px;">
-                    <tr>
-                      <th>{{ "checkout.table.subTotal" | translate }}</th>
-                      <td>ر.س{{ total }}</td>
-                    </tr>
-                    <tr>
-                      <th>{{ "checkout.table.total" | translate }}</th>
-                      <td>ر.س{{ total }}</td>
-                    </tr>
-                  </tfoot>
-                </table>
-              </div>
+      <div class="content" [ngStyle]="{'order': isLoggedIn ? '1' : '2'}">
+        <div class="col-lg-6 col-md-12" data-aos="fade-down" data-aos-duration="1000">
+          <div class="request card p-4" data-aos="fade-down" data-aos-duration="1000">
+            <h1 class="fw-bold pb-4" style="font-size: 28px;">
+              {{ "checkout.table.table-title" | translate }}
+            </h1>
+            <div class="table py-2">
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <tr style="font-size: 22px;">
+                    <th scope="col">
+                      {{ "checkout.table.product" | translate }}
+                    </th>
+                    <th scope="col">
+                      {{ "checkout.table.price" | translate }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody style="font-size: 20px;">
+                  <tr *ngFor="let item of products">
+                    <td scope="row">{{ item.title }} * 1</td>
+                    <td>ر.س{{ item.newPrice }}</td>
+                  </tr>
+                </tbody>
+                <tfoot style="font-size: 18px;">
+                  <tr>
+                    <th>{{ "checkout.table.subTotal" | translate }}</th>
+                    <td>ر.س{{ total }}</td>
+                  </tr>
+                  <tr>
+                    <th>{{ "checkout.table.total" | translate }}</th>
+                    <td>ر.س{{ total }}</td>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
-            <div class="btn-checkout card p-5" data-aos="fade-down" data-aos-duration="1000">
-              <mat-radio-group
-                aria-labelledby="example-radio-group-label"
-                class="example-radio-group">
-                <mat-radio-button
-                  class="example-radio-button"
-                  *ngFor="let check of listCheckout"
-                  [value]="check.name" checked="check[0].name"
-                >
-                  {{ check.name }}
-                  <img [src]="check.img" loading="lazy" alt="visa" class="px-1" height="28">
-                </mat-radio-button>
-              </mat-radio-group>
-              <div class="btns">
-                <button class="btn btn-outline-success w-100" [disabled]="!isLoggedIn" (click)="checkout()">{{'checkout.confirmation' | translate}}</button>
-            </div>            
-              <div *ngIf="isLoading" >
-               جاري التحميل ..
-              </div>
+          </div>
+          <div class="btn-checkout card p-5" data-aos="fade-down" data-aos-duration="1000">
+            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
+              <mat-radio-button class="example-radio-button" *ngFor="let check of listCheckout" [value]="check.name"
+                checked="check[0].name">
+                {{ check.name }}
+                <img [src]="check.img" loading="lazy" alt="visa" class="px-1" height="28">
+              </mat-radio-button>
+            </mat-radio-group>
+            <div class="btns">
+              <button class="btn btn-outline-success w-100" [disabled]="!isLoggedIn"
+                (click)="checkout()">{{'checkout.confirmation' | translate}}</button>
+            </div>
+            <div *ngIf="isLoading">
+              جاري التحميل ..
             </div>
           </div>
         </div>
       </div>
+
     </div>
+  </div>
 </section>
