@@ -5,6 +5,7 @@ section {
         color: var(--main-color);
         text-decoration: underline;
       }
+      
     }
     .coupons {
       form {
@@ -44,18 +45,23 @@ section {
         }
       }
     }
-    .noAccount{
-      order: 0; // it should be (2,{ 1 }, 2) when logged in and (1, {0}, 2) if not
-      display: flex;
-      justify-content: right;
-      align-items: stretch;
-    }
+   
     .details-body{
       order: 2;
       display: flex;
-      justify-content: right;
+      justify-content: left;
       align-items: stretch;
       
     }
   }
+  
+}
+.noAccount{
+  a {
+    color: var(--main-color);
+    text-decoration: underline;
+  }
+  display: flex;
+  justify-content: right;
+  align-items: stretch;
 }
