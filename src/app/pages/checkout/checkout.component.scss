@@ -47,10 +47,19 @@ section {
     }
    
     .details-body{
+       display: none;
+       justify-content: center;
+  }
+
+  @media (min-width: 1024px) {
+    .details-body {
+      display: block;
       order: 2;
-      display: flex;
-      justify-content: left;
+     
+      justify-content: center;
       align-items: stretch;
+    }
+    
       
     }
   }
