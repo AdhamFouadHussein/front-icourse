@@ -12,18 +12,19 @@
       </ol>
     </nav>
     
-    <div class="content-page"style="display: grid; grid-template-columns: 4fr 1fr;">
-            <div class="details-body">
+    <div class="content-page"style="display: grid; grid-template-columns: 4fr 2fr;">
+      <div class="details-body" style="display: grid;">
         <div class="product border-bottom py-2 d-flex" *ngFor="let item of products; let i = index">
           <div class="image">
-            <a routerLink="/course-details">
-              <img [src]="item.img" loading="lazy" alt="product" height="60" />
+            <a routerLink="/course-details/{{item.id}}">
+              <img [src]="item.img" loading="lazy" alt="product" height="80" />
             </a>
           </div>
           <div class="product-details px-3 w-80" style="font-size: 18px;">
             <div class="title">
-              <a routerLink="/course-details">
+              <a routerLink="/course-details/{{item.id}}">
                 <h2 class="text-primary pb-4" style="font-size: 20px;">{{ item.title }}</h2>
+                <div [innerHTML]="item.descr"></div>
               </a>
               <h3 class="text-muted" style="font-size: 18px;">
                <span>ر.س{{ item.newPrice }}</span>
