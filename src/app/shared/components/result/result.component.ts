@@ -1,18 +1,17 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-result',
-  template: `
-    <h1 mat-dialog-title>Result</h1>
-    <div mat-dialog-content>
-      <p>{{ data.result}}</p>
-    </div>
-  `
+  templateUrl: './result.component.html',
+  styleUrls:['./result.component.scss']
 })
 export class ResultComponent {
-  constructor(
+  constructor(private dialogRef: MatDialogRef<ResultComponent>,
     // Inject the data passed from the MyCoursesComponent
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
+  closeDialog(){
+    this.dialogRef.close(); // <- Close the mat dialog
+  }
 }

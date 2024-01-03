@@ -1,4 +1,15 @@
-<h1 mat-dialog-title>Result</h1>
-<div mat-dialog-content>
-  <p>{{ data.result }}</p>
+<br>
+<h1 style="text-align: center;"> عملية ناجحة</h1>
+<h3 style="text-align: center;" >شكرا لاختياركم الخبير</h3>
+<div mat-dialog-content class="dig-body">
+  <br>
+  
+  <p style="margin: 20px; font-size: 20px; justify-content: center; text-align: center; min-width: 300px; min-height: 50px">{{ data.result }}</p>
+  <div style="text-align: right; margin-right: 75%; width: 80px; height: 30px;">
+    <button (click)=closeDialog() class="btn btn-warning rounded btn-lg" style=" text-align: right; ">حسنا</button>
+  </div>
+  
+  
+ 
+  <br><br>
 </div>
