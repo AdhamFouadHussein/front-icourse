@@ -12,7 +12,7 @@ import {
 import {
   ActivatedRoute
 } from '@angular/router';
-
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Injectable()
 export class DataService {
   constructor(private http: HttpClient) {}
@@ -34,10 +34,17 @@ export interface VideoDetail {
   selector: 'app-course-details',
   templateUrl: './course-details.component.html',
   styleUrls: ['./course-details.component.scss'],
-  providers: [DataService]
+  providers: [DataService],
+  template: `
+  <div [innerHTML]="descr"></div>
+`,
 })
 
 export class CourseDetailsComponent implements OnInit {
+
+
+  descr: SafeHtml = "<span>Loading</span>";
+  longdescr: SafeHtml= "<span>Loading</span>";
   panelOpenState = true;
 
   recommended: any = [];
@@ -47,13 +54,15 @@ export class CourseDetailsComponent implements OnInit {
   videoDetails: VideoDetail[] = [];
   curr_video_title: string = '';
   curr_video_name: string = '';
-  constructor(public auth: AuthService, private dataService: DataService, private route: ActivatedRoute) {}
+  constructor(public auth: AuthService, private dataService: DataService, private route: ActivatedRoute, private _sanitizer: DomSanitizer) {}
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id != null) {
       this.dataService.getData(id).subscribe((data: any) => {
         this.course = data[0];
+        this.descr = this._sanitizer.bypassSecurityTrustHtml(this.course.descr);
+        this.longdescr = this._sanitizer.bypassSecurityTrustHtml(this.course.longdescr);
         this.videoDetails = JSON.parse(data[0].lessons_list) as VideoDetail[];
         this.courseVideo = [];
         for (let i = 0; i < this.videoDetails.length; i++) {
@@ -95,6 +104,8 @@ export class CourseDetailsComponent implements OnInit {
         this.recommended.push(...randomCourses);
             });
     }
+   
+ 
   }
   addToCart() {
     // Get the existing courses from local storage

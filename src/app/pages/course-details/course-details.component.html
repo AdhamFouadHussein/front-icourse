@@ -17,7 +17,7 @@
         <div class="col-lg-8 col-md-12">
           <div class="course-info">
             <h1 class="fs-1 mb-4">{{ course.title }}</h1>
-            <div style="line-height: 24px; font-size: 14px;" [innerHTML]="course.descr"></div>
+            <div [innerHTML]="descr"></div>
           </div>
           <div class="course-mate gap-4">
             <div class="course-auth d-flex gap-2">
@@ -99,7 +99,7 @@
         <div class="col-xl-7 col-lg-7 col-md-12">
           <div class="tab-right" data-aos="fade-down" data-aos-duration="1000">
             <div class="details" data-aos="fade-down" data-aos-duration="1000">
-              <div style="line-height: 24px; font-size: 14px;" [innerHTML]="course.longdescr"></div>
+              <div [innerHTML]="longdescr"></div>
             </div>
             <mat-accordion data-aos="fade-down" data-aos-duration="1000">
               <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
