@@ -27,7 +27,7 @@ section {
   }
   .content-page {
     @media (min-width: 1024px) {
-      grid-template-columns: 4fr 2fr;
+      grid-template-columns: 2fr 2fr;
     }
     display: grid;
     grid-template-columns: 1fr;
@@ -41,10 +41,12 @@ section {
         display: flex;
         flex-direction: column;
         gap: 20px; // Adjust this value to set the gap between the cards
-
+        align-items: stretch;
+        flex-grow: 0.5;
         .card {
           flex-grow: 1;
           display: flex;
+          align-items: stretch;
           flex-direction: column;
         }
       }
