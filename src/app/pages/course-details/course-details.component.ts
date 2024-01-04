@@ -13,15 +13,16 @@ import {
   ActivatedRoute
 } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Services } from 'src/app/shared/services/services.service';
 @Injectable()
 export class DataService {
   constructor(private http: HttpClient) {}
 
   getData(id: String) {
-    return this.http.get(`https://alkhabir.co/api.php/courses/${id}`);
+    return this.http.get(`http://localhost:3000/api.php/courses/${id}`);
   }
   getAllData() {
-    return this.http.get('https://alkhabir.co/api.php/courses');
+    return this.http.get('http://localhost:3000/api.php/courses');
   }
   
 }
@@ -46,7 +47,7 @@ export class CourseDetailsComponent implements OnInit {
   descr: SafeHtml = "<span>Loading</span>";
   longdescr: SafeHtml= "<span>Loading</span>";
   panelOpenState = true;
-
+  purshased : boolean = this.services.getData();
   recommended: any = [];
   course: any; // This object will be populated with data from the API
   courses: any;
@@ -54,7 +55,7 @@ export class CourseDetailsComponent implements OnInit {
   videoDetails: VideoDetail[] = [];
   curr_video_title: string = '';
   curr_video_name: string = '';
-  constructor(public auth: AuthService, private dataService: DataService, private route: ActivatedRoute, private _sanitizer: DomSanitizer) {}
+  constructor(public auth: AuthService, private dataService: DataService, private route: ActivatedRoute, private _sanitizer: DomSanitizer, private services: Services) {}
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
