@@ -9,40 +9,10 @@
     </nav>
     <div class="content-page">
       <div class="row">
-        <!-- <div class="col-12">
-          <div class="tab-search" data-aos="fade-down" data-aos-duration="1000">
-            <div class="icons-layout">
-              <a [ngClass]="grid ? 'active' : ''" (click)="grid = true"><i class='bx bxs-grid-alt'></i></a>
-              <a [ngClass]="grid ? '' : 'active'" (click)="grid = false"><i class='bx bx-list-ul'></i></a>
-            </div>
-            <div class="course-index">
-              <span>إظهار 1-2 من 2 النتائج</span>
-            </div>
-            <div class="course-select">
-              <mat-form-field>
-                <mat-label>أختر</mat-label>
-                <mat-select (change)="selectCourse($event)" [(value)]="courseSelect[0]">
-                  <mat-option *ngFor="let item of courseSelect" [value]="item">{{item}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="course-searching">
-              <form>
-                <input type="text" name="c_search" [(ngModel)]="searchTerm" placeholder="ابحث في دوراتنا"
-                  class="form-control course-search-filter" autocomplete="off">
-                <button>
-                  <a (click)="search()">
-                    <i class='bx bx-search'></i>
-                  </a>
-                </button>
-              </form>
-            </div>
-          </div>
-        </div> -->
         <div class="col-10 mx-auto" style="align-self: center;">
           <div class="cards" data-aos="fade-down" data-aos-duration="1000">
             <div class="row" *ngIf="grid">
-              <div class="col-lg-4 col-md-6 col-sm-12" [routerLink]="['/course-details', item.id]" *ngFor="let item of courses" data-aos="fade-down" data-aos-duration="1000">
+              <div class="col-lg-4 col-md-6 col-sm-12"  *ngFor="let item of courses" data-aos="fade-down" data-aos-duration="1000">
                 <card [img]="item.img" [logo]="item.logo" [name]="item.name" [title]="item.title" [price]="item.price"
                   [newPrice]="item.newPrice" [sub]="item.sub"></card>
               </div>

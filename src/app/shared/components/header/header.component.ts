@@ -36,10 +36,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         img: '../../../../assets/images/card.jpg',
         title: 'مبادئ الأتوكاد',
         quantity: 1,
-        newPrice: 250,
+        newPrice: 0,
       }
     ],
-    total: 500,
+    total: 0,
   };
 
 
@@ -152,6 +152,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.reloadSubscription = this.reloadService.reloadObservable.subscribe((value: boolean) => {
       if (value) {
         this.getShopping();
+        console.log("Reloaded...");
       }
     });
   }
