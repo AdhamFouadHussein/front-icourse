@@ -4,10 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { ResultComponent } from 'src/app/shared/components/result/result.component';
 
-interface Response  {
-  description: string;
-  // other properties
-}
 @Component({
   selector: 'app-my-courses',
   templateUrl: './my-courses.component.html',
@@ -16,6 +12,7 @@ interface Response  {
 
 export class MyCoursesComponent implements OnInit {
   result?: string = '';
+  title?: string ='';
   courses = [
     {
       id: 1,
@@ -35,18 +32,30 @@ export class MyCoursesComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const resourcePath = params['resourcePath'];
       if (resourcePath) {
-        this.getStatus(resourcePath).then(responseData => {
-          this.result = responseData.result.description;
+        this.getStatus(resourcePath).then(async responseData => {
+          console.log(responseData);
+          //responseData.merchantTransactionId;
+          if (responseData.result.code == "000.100.110"){
+            this.title = "عملية ناجحة";
+            this.result = "تم إضافة الدورة لحسابك";
+          }else{
+            this.title= "عملية غير ناجحة";
+            this.result = "حدث خطأ الرجاء المحاولة مرة اخرى"
+          }
           this.openPopUp();
           console.log(`Payment status: ${this.result}`);
+          let data  ={ id: responseData.merchantTransactionId};
+          await this.sendPostRequest(data)  .then(data => {
+            console.log(data)});
+         
         });
       }
     });
   }
 
   async getStatus(resourcePath: string) {
-    const url = `https://eu-test.oppwa.com${resourcePath}?entityId=`;
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ');
+    const url = `https://eu-test.oppwa.com${resourcePath}?entityId=8ac7a4c98a5dd899018a5f272d6500ef`;
+    const headers = new HttpHeaders().set('Authorization', 'Bearer OGFjN2E0Yzk4YTVkZDg5OTAxOGE1ZjI1ZWY4NjAwZWJ8ZjR0cmdxc2g1Zg==');
 
     try {
       const response = await this.http.get(url, { headers }).toPromise();
@@ -58,11 +67,26 @@ export class MyCoursesComponent implements OnInit {
     }
     
   }
+  async sendPostRequest(data: any) {
+    const response = await fetch('http://localhost:3000/api.php/fpay', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+}
   openPopUp() {
     // Open the pop up card with ResultComponent as its content
     this.dialog.open(ResultComponent, {
       // Pass the result as data to the pop up card
-      data: { result: this.result }
+      data: { result: this.result , title: this.title}
     });
   }
 }
