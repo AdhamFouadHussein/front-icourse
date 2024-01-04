@@ -1,0 +1,80 @@
+section {
+    .content-page {
+      .tab-search {
+        background-color: var(--main-bg);
+        padding: 10px 20px;
+        margin-bottom: 35px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+        row-gap: 10px;
+        column-gap: 15px;
+  
+        .icons-layout {
+          float: inline-start;
+  
+          a {
+            margin: 0 5px;
+            font-size: 20px;
+            font-weight: 900;
+  
+            &:hover {
+              color: var(--main-color);
+            }
+          }
+        }
+  
+        .course-index {
+          color: #999;
+        }
+  
+        .course-searching {
+          width: 370px;
+          max-width: 100%;
+  
+          form {
+            position: relative;
+  
+            .course-search-filter {
+              &::placeholder {
+                color: #999;
+              }
+  
+              &:focus {
+                border-color: var(--main-color);
+                box-shadow: none;
+              }
+            }
+  
+            button {
+              position: absolute;
+              inset-inline-end: 0;
+              inset-block-start: 0;
+              background: none;
+              color: #999;
+              font-size: 16px;
+              font-weight: bolder;
+              width: 30px;
+              border: 0;
+              border-radius: 0;
+              height: 100%;
+            }
+  
+            a {
+              transition: var(--main-transition);
+  
+              &:hover {
+                color: var(--main-color);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .custom-card {
+    max-width: 50%; // Adjust this value to your preference
+    margin: 0 auto; // This will center the cards
+  }

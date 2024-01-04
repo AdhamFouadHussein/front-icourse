@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,24 +11,22 @@ import { ResultComponent } from 'src/app/shared/components/result/result.compone
 })
 
 export class MyCoursesComponent implements OnInit {
+  
+  grid = true;
   result?: string = '';
   title?: string ='';
-  courses = [
-    {
-      id: 1,
-      img: '../../../../assets/images/card.jpg',
-      logo: '../../../../assets/images/cardLogo.jpeg',
-      name: 'Alkhabir1',
-      title: 'دورة الريفيت الانشائي',
-      desc: 'تُعَتِّبر دورة الريفيت الانشائي من الدورات التدريبية الرائدة في مجال الهندسة المعمارية والإنشائية. تعتمد هذه الدورة على استخدام برنامج الريفيت الذي يعتبر أحد أقوى...',
-      price: 100,
-      newPrice: 100,
-      sub: 2500,
-    },
-  
-  ];
+  email: string = localStorage.getItem('email') || '';
+  courses:any = [];
   constructor(private route: ActivatedRoute, private http: HttpClient, public dialog: MatDialog) {} // Inject the MatDialog service
   ngOnInit(): void {
+    this.getCourses({email: this.email}).then((data: any) => {
+      this.courses = data;
+      console.log(this.courses);
+    }).catch((error: any) => {
+      console.error('Error:', error);
+    });
+    console.log("email: " + this.email);
+    this.getCourses({email: this.email});
     this.route.queryParams.subscribe(params => {
       const resourcePath = params['resourcePath'];
       if (resourcePath) {
@@ -47,8 +45,16 @@ export class MyCoursesComponent implements OnInit {
           let data  ={ id: responseData.merchantTransactionId};
           await this.sendPostRequest(data)  .then(data => {
             console.log(data)});
-         
+            let edata = {
+              email:this.email
+            }
+            await this.getCourses(edata).then(data => {
+            //  console.log(data.json());
+            //  this.courses = data;
+           //   console.log(this.courses)
+            });
         });
+
       }
     });
   }
@@ -82,11 +88,33 @@ export class MyCoursesComponent implements OnInit {
 
     return await response.json();
 }
+  async  getCourses(data:any){
+    const response = await fetch('http://localhost:3000/api.php/my-courses', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  });
+
+  if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+  }
+ // console.log(response.json());
+  return await response.json();
+  }
   openPopUp() {
     // Open the pop up card with ResultComponent as its content
     this.dialog.open(ResultComponent, {
       // Pass the result as data to the pop up card
       data: { result: this.result , title: this.title}
     });
+  }
+ 
+  getData() {
+    return this.http.get('http://localhost:3000/api.php/courses');
+  }
+  selectCourse(e: any) {
+    console.log(e.value);
   }
 }
