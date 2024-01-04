@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { ResultComponent } from 'src/app/shared/components/result/result.component';
+import { ReloadService } from 'src/app/shared/services/reload.service';
 
 @Component({
   selector: 'app-my-courses',
@@ -17,7 +18,7 @@ export class MyCoursesComponent implements OnInit {
   title?: string ='';
   email: string = localStorage.getItem('email') || '';
   courses:any = [];
-  constructor(private route: ActivatedRoute, private http: HttpClient, public dialog: MatDialog) {} // Inject the MatDialog service
+  constructor(private route: ActivatedRoute, private http: HttpClient, public dialog: MatDialog, private reloadService: ReloadService) {} // Inject the MatDialog service
   ngOnInit(): void {
     this.getCourses({email: this.email}).then((data: any) => {
       this.courses = data;
@@ -31,11 +32,14 @@ export class MyCoursesComponent implements OnInit {
       const resourcePath = params['resourcePath'];
       if (resourcePath) {
         this.getStatus(resourcePath).then(async responseData => {
-          console.log(responseData);
+          //console.log(responseData);
           //responseData.merchantTransactionId;
           if (responseData.result.code == "000.100.110"){
             this.title = "عملية ناجحة";
             this.result = "تم إضافة الدورة لحسابك";
+            localStorage.removeItem('courses');
+            this.reloadService.triggerReload(true);
+           
           }else{
             this.title= "عملية غير ناجحة";
             this.result = "حدث خطأ الرجاء المحاولة مرة اخرى"
@@ -45,17 +49,9 @@ export class MyCoursesComponent implements OnInit {
           let data  ={ id: responseData.merchantTransactionId};
           await this.sendPostRequest(data)  .then(data => {
             console.log(data)});
-            let edata = {
-              email:this.email
-            }
-            await this.getCourses(edata).then(data => {
-            //  console.log(data.json());
-            //  this.courses = data;
-           //   console.log(this.courses)
-            });
         });
-
       }
+      this.reloadService.triggerReload(true);
     });
   }
 
@@ -105,9 +101,15 @@ export class MyCoursesComponent implements OnInit {
   }
   openPopUp() {
     // Open the pop up card with ResultComponent as its content
-    this.dialog.open(ResultComponent, {
+   let dialogRef = this.dialog.open(ResultComponent, {
       // Pass the result as data to the pop up card
       data: { result: this.result , title: this.title}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      localStorage.removeItem('courses');
+      location.reload();
+      //location.replace("/#/my-courses/");
+     // this.reloadService.triggerReload(true);
     });
   }
  
