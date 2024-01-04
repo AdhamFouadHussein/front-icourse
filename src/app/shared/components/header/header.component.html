@@ -39,6 +39,9 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="contact-us" routerLinkActive="active">{{"header.contact" | translate}}</a>
         </li>
+        <li *ngIf="token" class="nav-item">
+          <a class="nav-link" routerLink="my-courses" routerLinkActive="active">{{"header.my-courses" | translate}}</a>
+        </li>
       </ul>
     </div>
     <div class="icons">
