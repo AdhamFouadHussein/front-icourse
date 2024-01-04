@@ -19,6 +19,7 @@ export class CheckoutComponent implements OnInit {
   isLoading = false;
   isLoggedIn = false;
   products: any;
+  ids:[] = [];
   total: any;
   fullName: string = localStorage.getItem('full_name') || '';
   email: string = localStorage.getItem('email') || '';
@@ -33,6 +34,7 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.getShopping();
     this.isLoggedIn = this.email !== '' && this.email !== '{}';
+    this.ids = this.products.map((course: { id: any; }) => course.id);
    // console.log(this.isLoggedIn);
   }
 
@@ -53,15 +55,18 @@ export class CheckoutComponent implements OnInit {
         city: localStorage.getItem('city'),
         email: localStorage.getItem('email'),
         total: this.total,
-        courses: JSON.stringify(this.products),
+        courses: JSON.stringify(this.ids),
         status: 0
     };
     this.sendPostRequest(data)
     .then(data => {
-        console.log(data);/*
+        console.log(data);
         if (data['message'] == "New record created successfully" && data['status'] == 200){
           this.transId = data['transId'];
+          (document.getElementById('transId') as HTMLInputElement).value = this.transId.toString();
+          (document.getElementById('checkoutForm') as HTMLFormElement).submit();
           // Fill the form with data
+          /*
           (document.getElementById('user_first_name') as HTMLInputElement).value = data.user_first_name;
           (document.getElementById('user_last_name') as HTMLInputElement).value = data.user_last_name;
           (document.getElementById('address') as HTMLInputElement).value = data.address;
@@ -71,9 +76,9 @@ export class CheckoutComponent implements OnInit {
           (document.getElementById('courses') as HTMLInputElement).value = data.courses;
           (document.getElementById('status') as HTMLInputElement).value = data.status;
           // Submit the form
-          (document.getElementById('checkoutForm') as HTMLFormElement).submit();
+       
+          */
       }
-      */
     })
     .catch(error => console.log('There was an error!', error));
 }
