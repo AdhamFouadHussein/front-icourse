@@ -1,9 +1,10 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { ResultComponent } from 'src/app/shared/components/result/result.component';
 import { ReloadService } from 'src/app/shared/services/reload.service';
+import { Services } from 'src/app/shared/services/services.service';
 
 @Component({
   selector: 'app-my-courses',
@@ -18,7 +19,7 @@ export class MyCoursesComponent implements OnInit {
   title?: string ='';
   email: string = localStorage.getItem('email') || '';
   courses:any = [];
-  constructor(private route: ActivatedRoute, private http: HttpClient, public dialog: MatDialog, private reloadService: ReloadService) {} // Inject the MatDialog service
+  constructor(private route: ActivatedRoute, private http: HttpClient, public dialog: MatDialog, private reloadService: ReloadService, private services: Services, private router: Router) {} 
   ngOnInit(): void {
     this.getCourses({email: this.email}).then((data: any) => {
       this.courses = data;
@@ -70,7 +71,7 @@ export class MyCoursesComponent implements OnInit {
     
   }
   async sendPostRequest(data: any) {
-    const response = await fetch('http://localhost:3000/api.php/fpay', {
+    const response = await fetch('https://alkhabir.co/api.php/fpay', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -85,7 +86,7 @@ export class MyCoursesComponent implements OnInit {
     return await response.json();
 }
   async  getCourses(data:any){
-    const response = await fetch('http://localhost:3000/api.php/my-courses', {
+    const response = await fetch('https://alkhabir.co/api.php/my-courses', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
@@ -103,18 +104,20 @@ export class MyCoursesComponent implements OnInit {
     // Open the pop up card with ResultComponent as its content
    let dialogRef = this.dialog.open(ResultComponent, {
       // Pass the result as data to the pop up card
-      data: { result: this.result , title: this.title}
+      data: { result: this.result , title: this.title, buttontxt: 'حسنا'}
     });
     dialogRef.afterClosed().subscribe(result => {
       localStorage.removeItem('courses');
       location.reload();
-      //location.replace("/#/my-courses/");
-     // this.reloadService.triggerReload(true);
+      location.replace("/#/my-courses/");
     });
   }
- 
+  navigate(item: { id: any; }) {
+    this.services.setData(true); // set the boolean value
+    this.router.navigate(['/course-details', item.id]);
+  }
   getData() {
-    return this.http.get('http://localhost:3000/api.php/courses');
+    return this.http.get('https://alkhabir.co/api.php/courses');
   }
   selectCourse(e: any) {
     console.log(e.value);
