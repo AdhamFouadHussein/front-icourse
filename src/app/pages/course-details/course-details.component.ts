@@ -14,15 +14,17 @@ import {
 } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Services } from 'src/app/shared/services/services.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ResultComponent } from 'src/app/shared/components/result/result.component';
 @Injectable()
 export class DataService {
   constructor(private http: HttpClient) {}
 
   getData(id: String) {
-    return this.http.get(`http://localhost:3000/api.php/courses/${id}`);
+    return this.http.get(`https://alkhabir.co/api.php/courses/${id}`);
   }
   getAllData() {
-    return this.http.get('http://localhost:3000/api.php/courses');
+    return this.http.get('https://alkhabir.co/api.php/courses');
   }
   
 }
@@ -43,7 +45,8 @@ export interface VideoDetail {
 
 export class CourseDetailsComponent implements OnInit {
 
-
+  title!: string;
+  result!: string;
   descr: SafeHtml = "<span>Loading</span>";
   longdescr: SafeHtml= "<span>Loading</span>";
   panelOpenState = true;
@@ -55,7 +58,7 @@ export class CourseDetailsComponent implements OnInit {
   videoDetails: VideoDetail[] = [];
   curr_video_title: string = '';
   curr_video_name: string = '';
-  constructor(public auth: AuthService, private dataService: DataService, private route: ActivatedRoute, private _sanitizer: DomSanitizer, private services: Services) {}
+  constructor(public auth: AuthService,public dialog: MatDialog, private dataService: DataService, private route: ActivatedRoute, private _sanitizer: DomSanitizer, private services: Services) {}
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -108,6 +111,16 @@ export class CourseDetailsComponent implements OnInit {
    
  
   }
+  openPopUp() {
+    // Open the pop up card with ResultComponent as its content
+   let dialogRef = this.dialog.open(ResultComponent, {
+      // Pass the result as data to the pop up card
+      data: { result: this.result , title: this.title, buttontxt:"عربة التسوق"}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    //  location.reload();
+    });
+  }
   addToCart() {
     // Get the existing courses from local storage
     let storedCourses = localStorage.getItem('courses');
@@ -125,6 +138,9 @@ export class CourseDetailsComponent implements OnInit {
         // Update the BehaviorSubject and local storage
         this.auth.shopp.next(existingCourses);
         localStorage.setItem('courses', JSON.stringify(existingCourses));
+        this.title = 'تم الإضافة الى سلتك';
+        this.result = 'لقد قمت بإضافة الدورة الى عربة التسوق الخاصة بك.'
+        this.openPopUp();
     }
 }
 
