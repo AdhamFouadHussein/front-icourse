@@ -28,7 +28,6 @@ export class MyCoursesComponent implements OnInit {
       console.error('Error:', error);
     });
     console.log("email: " + this.email);
-    this.getCourses({email: this.email});
     this.route.queryParams.subscribe(params => {
       const resourcePath = params['resourcePath'];
       if (resourcePath) {
@@ -39,7 +38,9 @@ export class MyCoursesComponent implements OnInit {
             this.title = "عملية ناجحة";
             this.result = "تم إضافة الدورة لحسابك";
             localStorage.removeItem('courses');
-            this.reloadService.triggerReload(true);
+            this.reloadService.triggerReload(true); let data  ={ id: responseData.merchantTransactionId};
+            await this.sendPostRequest(data)  .then(data => {
+              console.log(data)});
            
           }else{
             this.title= "عملية غير ناجحة";
@@ -47,9 +48,7 @@ export class MyCoursesComponent implements OnInit {
           }
           this.openPopUp();
           console.log(`Payment status: ${this.result}`);
-          let data  ={ id: responseData.merchantTransactionId};
-          await this.sendPostRequest(data)  .then(data => {
-            console.log(data)});
+         
         });
       }
       this.reloadService.triggerReload(true);
@@ -71,7 +70,7 @@ export class MyCoursesComponent implements OnInit {
     
   }
   async sendPostRequest(data: any) {
-    const response = await fetch('https://alkhabir.co/api.php/fpay', {
+    const response = await fetch('http://localhost:3000/api.php/fpay', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -86,7 +85,7 @@ export class MyCoursesComponent implements OnInit {
     return await response.json();
 }
   async  getCourses(data:any){
-    const response = await fetch('https://alkhabir.co/api.php/my-courses', {
+    const response = await fetch('http://localhost:3000/api.php/my-courses', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
@@ -117,7 +116,7 @@ export class MyCoursesComponent implements OnInit {
     this.router.navigate(['/course-details', item.id]);
   }
   getData() {
-    return this.http.get('https://alkhabir.co/api.php/courses');
+    return this.http.get('http://localhost:3000/api.php/courses');
   }
   selectCourse(e: any) {
     console.log(e.value);
