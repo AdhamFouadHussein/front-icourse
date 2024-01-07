@@ -13,18 +13,19 @@ import {
   ActivatedRoute
 } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Services } from 'src/app/shared/services/services.service';
+
 import { MatDialog } from '@angular/material/dialog';
 import { ResultComponent } from 'src/app/shared/components/result/result.component';
+import { ServicesService } from 'src/app/shared/services/services.service';
 @Injectable()
 export class DataService {
   constructor(private http: HttpClient) {}
 
   getData(id: String) {
-    return this.http.get(`https://alkhabir.co/api.php/courses/${id}`);
+    return this.http.get(`http://localhost:3000/api.php/courses/${id}`);
   }
   getAllData() {
-    return this.http.get('https://alkhabir.co/api.php/courses');
+    return this.http.get('http://localhost:3000/api.php/courses');
   }
   
 }
@@ -50,7 +51,6 @@ export class CourseDetailsComponent implements OnInit {
   descr: SafeHtml = "<span>Loading</span>";
   longdescr: SafeHtml= "<span>Loading</span>";
   panelOpenState = true;
-  purshased : boolean = this.services.getData();
   recommended: any = [];
   course: any; // This object will be populated with data from the API
   courses: any;
@@ -58,10 +58,21 @@ export class CourseDetailsComponent implements OnInit {
   videoDetails: VideoDetail[] = [];
   curr_video_title: string = '';
   curr_video_name: string = '';
-  constructor(public auth: AuthService,public dialog: MatDialog, private dataService: DataService, private route: ActivatedRoute, private _sanitizer: DomSanitizer, private services: Services) {}
+  purchased:boolean = false;
+  constructor(public auth: AuthService,public dialog: MatDialog, private dataService: DataService, private route: ActivatedRoute, private _sanitizer: DomSanitizer, private servicesService: ServicesService) {}
 
   ngOnInit() {
+
     const id = this.route.snapshot.paramMap.get('id');
+    let email = localStorage.getItem('email') || '';
+    if(email != ''){
+      this.servicesService.getPaidCourses(email).subscribe(courses => {
+        this.servicesService.setPurchased(true, courses.map((course: { id: any; }) => String(course.id)));
+        console.log(this.servicesService.getCourseIds());
+        this.purchased = this.servicesService.hasPurchased(id!.toString());
+        console.log(this.purchased);
+      });
+    }
     if (id != null) {
       this.dataService.getData(id).subscribe((data: any) => {
         this.course = data[0];
@@ -96,7 +107,6 @@ export class CourseDetailsComponent implements OnInit {
       });
       this.dataService.getAllData().subscribe((data: any) => {
         this.courses = data;
-        console.log(data);
         // Push the course to the 'recommended' array
        // Filter out the course with the same id as the currently opened course
         const filteredCourses = this.courses.flat().filter((course: { id: string; }) => course.id !== id);
