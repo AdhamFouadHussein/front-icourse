@@ -1,11 +1,11 @@
 <section>
-  <banner [title]=course.category></banner>
+  <banner [title]="course.category"></banner>
   <div class="container">
     <nav class="nav-breadcrumb py-3 fs-6 fw-medium border-bottom border-light-subtle" aria-label="breadcrumb">
       <ol class="breadcrumb m-0">
         <li class="breadcrumb-item"><a routerLink="/">{{'breadcrumb.home' | translate}}</a></li>
         <li class="breadcrumb-item"><a routerLink="/courses">{{'breadcrumb.courses' | translate}}</a></li>
-        <li class="breadcrumb-item"><a routerLink="/courses"></a>{{ course.category }}</li>
+        <li class="breadcrumb-item"><a routerLink="/courses"></a>{{course.category}}</li>
         <li class="breadcrumb-item active" aria-current="page">{{ course.title }}</li>
       </ol>
     </nav>
@@ -56,12 +56,12 @@
               </iframe> -->
             </div>
             <div class="container py-4">
-              <div class="price d-flex gap-2" *ngIf="!purshased">
+              <div class="price d-flex gap-2" *ngIf="!purchased" >
                 <h1 class="old-price" style="font-size: 24px;">{{ course.price }} ر.س</h1>
                 <h1 class="new-price" style="font-size: 26px;" >{{ course.newPrice }} ر.س</h1>
               </div>
-              <div class="btns pt-4 w-100" *ngIf="!purshased">
-                <button class="btn btn-warning btn-lg w-100" (click)="addToCart()">إضافة إلى السلة</button>
+              <div class="btns pt-4 w-100" *ngIf="!purchased">
+                <button class="btn btn-warning btn-lg w-100"  (click)="addToCart()">إضافة إلى السلة</button>
               </div>
               <div class="includes pt-4">
                 <div class="include-item d-flex align-items-center gap-2 my-2">
@@ -104,30 +104,37 @@
             <mat-accordion data-aos="fade-down" data-aos-duration="1000">
               <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
                 <mat-expansion-panel-header>
-                  <mat-panel-title class="d-flex justify-content-between">
+                  <mat-panel-title class="d-flex justify-content-between align-items-center">
                     <div style="font-size: 20px;">
+                      <!-- Preview button for the first item -->
+                      <button *ngIf="!purchased && courseVideo.length > 0" >Preview</button>
                       {{course.title}}
                     </div>
-                    <h2 class="color" style="font-size: 20px;">{{course.nlessons}}  </h2>
+                    <h2 class="color" style="font-size: 20px;">{{course.nlessons}}</h2>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-panel-description *ngFor="let item of courseVideo">
+                <mat-panel-description *ngFor="let item of courseVideo; let i = index">
                   <div class="w-100">
                     <div class="row">
-                      <div class="d-flex justify-content-between align-items-center border-bottom p-2" style="cursor: pointer;" routerLink="/course-videos/{{course.id}}">
+                      <div class="d-flex justify-content-between align-items-center border-bottom p-2" style="cursor: pointer;"
+                        routerLink="/course-videos/{{course.id}}">
                         <div class="d-flex align-items-center gap-2 my-2">
                           <i class='bx bx-file-blank color fs-6'></i>
                           <div class="d-flex align-items-center gap-3">
-                            <h3 style="font-size: 16px;">{{item.name}}</h3>
+                            <h3 style="font-size: 16px;">
+                              {{item.name}}
+                            </h3>
                             <h3 style="font-size: 16px;">{{item.title}}</h3>
                           </div>
                         </div>
-                        <i class='bx bxs-lock-alt color fs-6' *ngIf="!purshased"></i>
+                        <!-- Remove lock icon if purchased -->
+                        <i *ngIf="!purchased" class='bx bxs-lock-alt color fs-6'></i>
                       </div>
                     </div>
                   </div>
                 </mat-panel-description>
               </mat-expansion-panel>
+              
             </mat-accordion>
             
             <div class="card border-1 mt-4 w-100" data-aos="fade-down" data-aos-duration="1000">
