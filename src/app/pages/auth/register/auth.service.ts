@@ -9,6 +9,6 @@ export class AuthService {
     constructor(private http: HttpClient) { }
 
     register(userData: any) {
-        return this.http.post('https://alkhabir.co/register.php', userData);
+        return this.http.post('http://localhost:3000/register.php', userData);
     }
 }

@@ -11,7 +11,7 @@ export class AuthService {
   // _login = false;
   constructor(private http: HttpClient, private router: Router) { }
 
-  isUserLogin() {
+  isLoggedIn() {
     if (localStorage.getItem('token')) {
       return true;
     } else {
@@ -34,10 +34,10 @@ export class AuthService {
   // }
 
   login(userData: any) {
-    return this.http.post('https://alkhabir.co/login.php', userData);
+    return this.http.post('http://localhost:3000/login.php', userData);
   }
 
   register(userData: any) {
-    return this.http.post('https://alkhabir.co/register.php', userData);
+    return this.http.post('http://localhost:3000/register.php', userData);
   }
 }
