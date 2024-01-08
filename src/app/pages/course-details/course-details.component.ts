@@ -17,6 +17,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { ResultComponent } from 'src/app/shared/components/result/result.component';
 import { ServicesService } from 'src/app/shared/services/services.service';
+import { PreviewComponent } from 'src/app/shared/components/preview/preview.component';
 @Injectable()
 export class DataService {
   constructor(private http: HttpClient) {}
@@ -33,6 +34,7 @@ export class DataService {
 export interface VideoDetail {
   videoName: string;
   videoTitle: string;
+  videoUrl:string;
 }
 @Component({
   selector: 'app-course-details',
@@ -59,6 +61,7 @@ export class CourseDetailsComponent implements OnInit {
   curr_video_title: string = '';
   curr_video_name: string = '';
   purchased:boolean = false;
+  urls:any;
   constructor(public auth: AuthService,public dialog: MatDialog, private dataService: DataService, private route: ActivatedRoute, private _sanitizer: DomSanitizer, private servicesService: ServicesService) {}
 
   ngOnInit() {
@@ -126,6 +129,16 @@ export class CourseDetailsComponent implements OnInit {
    let dialogRef = this.dialog.open(ResultComponent, {
       // Pass the result as data to the pop up card
       data: { result: this.result , title: this.title, buttontxt:"عربة التسوق"}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    //  location.reload();
+    });
+  }
+  openPreview(){
+    this.urls = [ this.videoDetails[0].videoUrl];
+    let dialogRef = this.dialog.open(PreviewComponent, {
+      // Pass the result as data to the pop up card
+      data: { urls: this.urls , title: this.course.title }
     });
     dialogRef.afterClosed().subscribe(result => {
     //  location.reload();

@@ -125,7 +125,7 @@
                             </h3>
                             <h3 style="font-size: 16px;"  routerLink="/course-videos/{{course.id}}">{{item.title}}</h3>
                                 <!-- Preview button for the first item -->
-                      <button *ngIf="courseVideo.length > 0 && i==0" >Preview</button>
+                      <button class="btn btn-warning  "  *ngIf="courseVideo.length > 0 && i==0"(click)="openPreview()">معاينة</button>
                           </div>
                           
                         </div>
