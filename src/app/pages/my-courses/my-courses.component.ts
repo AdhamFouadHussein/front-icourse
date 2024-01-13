@@ -41,7 +41,7 @@ export class MyCoursesComponent implements OnInit {
           if (responseData.result.code == "000.100.110"){
             this.title = "عملية ناجحة";
             this.result = "تم إضافة الدورة لحسابك";
-        //    this.reloadService.triggerReload(true);
+            this.reloadService.triggerReload(true);
             
             let data  ={ id: responseData.merchantTransactionId};
             await this.sendPostRequest(data).then(data => {
@@ -110,8 +110,8 @@ export class MyCoursesComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
         localStorage.removeItem('courses');
-       // location.reload();
         location.replace("/#/my-courses/");
+        location.reload();
       });
     } else {
       console.error('Error: Title or result is undefined.');
