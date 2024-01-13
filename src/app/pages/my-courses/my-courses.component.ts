@@ -4,7 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { ResultComponent } from 'src/app/shared/components/result/result.component';
 import { ReloadService } from 'src/app/shared/services/reload.service';
-import { Services } from 'src/app/shared/services/services.service';
+import { ServicesService } from 'src/app/shared/services/services.service';
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-my-courses',
@@ -13,13 +15,12 @@ import { Services } from 'src/app/shared/services/services.service';
 })
 
 export class MyCoursesComponent implements OnInit {
-  
   grid = true;
   result?: string = '';
   title?: string ='';
-  email: string = localStorage.getItem('email') || '';
+  email: string = 'adham@adhamfouad.cf'; //localStorage.getItem('email') || ''
   courses:any = [];
-  constructor(private route: ActivatedRoute, private http: HttpClient, public dialog: MatDialog, private reloadService: ReloadService, private services: Services, private router: Router) {} 
+  constructor(private route: ActivatedRoute, private http: HttpClient, public dialog: MatDialog, private reloadService: ReloadService, private services: ServicesService, private router: Router) {} 
   ngOnInit(): void {
     this.getCourses({email: this.email}).then((data: any) => {
       this.courses = data;
@@ -32,16 +33,20 @@ export class MyCoursesComponent implements OnInit {
       const resourcePath = params['resourcePath'];
       if (resourcePath) {
         this.getStatus(resourcePath).then(async responseData => {
-          //console.log(responseData);
+          console.log(responseData);
+
+          console.log("TRANS IDDDD: " + responseData.merchantTransactionId);
+          console.log("CODE: " + responseData.result.code);
           //responseData.merchantTransactionId;
           if (responseData.result.code == "000.100.110"){
             this.title = "عملية ناجحة";
             this.result = "تم إضافة الدورة لحسابك";
-            localStorage.removeItem('courses');
-            this.reloadService.triggerReload(true); let data  ={ id: responseData.merchantTransactionId};
-            await this.sendPostRequest(data)  .then(data => {
+        //    this.reloadService.triggerReload(true);
+            
+            let data  ={ id: responseData.merchantTransactionId};
+            await this.sendPostRequest(data).then(data => {
               console.log(data)});
-           
+          
           }else{
             this.title= "عملية غير ناجحة";
             this.result = "حدث خطأ الرجاء المحاولة مرة اخرى"
@@ -51,23 +56,23 @@ export class MyCoursesComponent implements OnInit {
          
         });
       }
-      this.reloadService.triggerReload(true);
+     // this.reloadService.triggerReload(true);
     });
   }
 
   async getStatus(resourcePath: string) {
     const url = `https://eu-test.oppwa.com${resourcePath}?entityId=8ac7a4c98a5dd899018a5f272d6500ef`;
     const headers = new HttpHeaders().set('Authorization', 'Bearer OGFjN2E0Yzk4YTVkZDg5OTAxOGE1ZjI1ZWY4NjAwZWJ8ZjR0cmdxc2g1Zg==');
-
+  
     try {
-      const response = await this.http.get(url, { headers }).toPromise();
-    
-   
-      return response;
-    } catch (error:any) {
+      return this.http.get(url, { headers }).pipe(
+        map((response: any) => {
+          return response;  // or return response as needed
+        })
+      ).toPromise();
+    } catch (error: any) {
       return error.message;
     }
-    
   }
   async sendPostRequest(data: any) {
     const response = await fetch('http://localhost:3000/api.php/fpay', {
@@ -82,7 +87,7 @@ export class MyCoursesComponent implements OnInit {
         throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    return await response.json();
+    return response.json();
 }
   async  getCourses(data:any){
     const response = await fetch('http://localhost:3000/api.php/my-courses', {
@@ -96,23 +101,24 @@ export class MyCoursesComponent implements OnInit {
   if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
   }
- // console.log(response.json());
-  return await response.json();
+  return response.json();
   }
   openPopUp() {
-    // Open the pop up card with ResultComponent as its content
-   let dialogRef = this.dialog.open(ResultComponent, {
-      // Pass the result as data to the pop up card
-      data: { result: this.result , title: this.title, buttontxt: 'حسنا'}
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      localStorage.removeItem('courses');
-      location.reload();
-      location.replace("/#/my-courses/");
-    });
+    if (this.title && this.result) {
+      let dialogRef = this.dialog.open(ResultComponent, {
+        data: { result: this.result, title: this.title, buttontxt: 'حسنا' }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        localStorage.removeItem('courses');
+       // location.reload();
+        location.replace("/#/my-courses/");
+      });
+    } else {
+      console.error('Error: Title or result is undefined.');
+    }
   }
   navigate(item: { id: any; }) {
-    this.services.setData(true); // set the boolean value
+    this.services.setPurchased(true, item.id.toString()); // set the boolean value
     this.router.navigate(['/course-details', item.id]);
   }
   getData() {
@@ -122,3 +128,4 @@ export class MyCoursesComponent implements OnInit {
     console.log(e.value);
   }
 }
+
