@@ -31,6 +31,10 @@
     "create-account": "إنشاء حساب"
   },
   "register": {
+    "country": "الدولة",
+    
+    "state":"المحافظة",
+    "postalCode": "رقم البريد",
     "username":"أسم المستخدم",
     "register": "مستخدم جديد",
     "fullName": "الإسم مطلوب",

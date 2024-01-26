@@ -30,6 +30,9 @@
     "create-account": "Create account"
   },
   "register": {
+    "country": "الدولة",
+    "state":"المحافظة",
+    "postalCode": "رقم البريد",
     "city":"City",
     "addresss":"Address",
     "phone_number":"Phone Number",
