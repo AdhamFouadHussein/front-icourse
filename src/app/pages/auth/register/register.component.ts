@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { overwrite, getName, getNameList, getData } from 'country-list';
 import {
   FormControl,
   FormGroup,
@@ -38,6 +39,7 @@ export class RegisterComponent implements OnInit {
     message: '',
     token:''
   }
+  countries = getData();
   hide = true;
   token!: string;
   registerSub!: Subscription;
@@ -79,6 +81,9 @@ export class RegisterComponent implements OnInit {
       Validators.required,
       this.matchValue('password'),
     ]),
+    country: new FormControl('SA', [Validators.required]),
+    state: new FormControl('', [Validators.required]),
+    postalCode: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{5}(?:-[0-9]{4})?$')]),
   });
 
   matchValue(matchTo: string): ValidatorFn {

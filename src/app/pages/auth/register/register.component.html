@@ -94,7 +94,35 @@
                 <!-- <span class="error" *ngIf="confirmPassword?.value !== password?.value">
                   Confirm the password is different from the password
                 </span> -->
-
+                <mat-form-field appearance="fill" data-aos="fade-down" data-aos-duration="1000">
+                  <mat-label>{{'register.country' | translate}}</mat-label>
+                  <mat-select formControlName="country">
+                    <mat-option *ngFor="let country of countries" [value]="country.code">
+                      <img [src]="'https://flagcdn.com/w20/' + country.code.toLowerCase() + '.png'" width="20" alt="{{country.name}} flag"> {{country.name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="registerForm.controls.country.errors?.['required']">
+                    {{'register.country-is' | translate}} <strong>{{'register.required' | translate}}</strong>
+                  </mat-error>
+                </mat-form-field>
+                
+                <mat-form-field appearance="fill" data-aos="fade-down" data-aos-duration="1000">
+                  <mat-label>{{'register.state' | translate}}</mat-label>
+                  <input type="text" matInput formControlName="state" placeholder="Ex. المدينة" />
+                  <mat-error *ngIf="registerForm.controls.state.errors?.['required']">
+                    {{'register.state' | translate}} <strong>{{'register.required' | translate}}</strong>
+                  </mat-error>
+                </mat-form-field>
+                
+              
+                
+                <mat-form-field appearance="fill" data-aos="fade-down" data-aos-duration="1000">
+                  <mat-label>{{'register.postalCode' | translate}}</mat-label>
+                  <input type="text" matInput formControlName="postalCode" placeholder="Ex. 12271" />
+                  <mat-error *ngIf="registerForm.controls.postalCode.errors?.['required']">
+                    {{'register.postalCode' | translate}} <strong>{{'register.required' | translate}}</strong>
+                  </mat-error>
+                </mat-form-field>
 
                 <div class="button text-center my-3" data-aos="fade-down" data-aos-duration="1000">
                   <button type="button" class="btn btn-warning w-100 btn-lg"  (click)="register()">
