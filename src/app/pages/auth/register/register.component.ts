@@ -20,6 +20,9 @@ export interface User {
   status: number;
   message: string;
   token:string;
+  country:string;
+  state: string;
+  postalCode:string;
 }
 @Component({
   selector: 'app-register',
@@ -37,7 +40,10 @@ export class RegisterComponent implements OnInit {
     password: '',
     status: 0,
     message: '',
-    token:''
+    token: '',
+    country: '',
+    state: '',
+    postalCode: ''
   }
   countries = getData();
   hide = true;
@@ -49,6 +55,7 @@ export class RegisterComponent implements OnInit {
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(50),
+      Validators.pattern(/^[a-zA-Z0-9]*$/) // No spaces or symbols allowed
     ]),
     city: new FormControl('', [
       Validators.required,
@@ -69,6 +76,7 @@ export class RegisterComponent implements OnInit {
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(50),
+      Validators.pattern(/^[a-zA-Z\s]*$/) // Only letters and spaces allowed
     ]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -119,6 +127,9 @@ export class RegisterComponent implements OnInit {
         localStorage.setItem('phone_number', this.user.phone_number);
         localStorage.setItem('city', this.user.city);
         localStorage.setItem('address', this.user.address);
+        localStorage.setItem('country', this.user.country);
+        localStorage.setItem('state', this.user.state);
+        localStorage.setItem('postalCode', this.user.postalCode);
        // localStorage.setItem('pp_src', this.user.pp_src);
         this.router.navigate(['/home']);
       } else {

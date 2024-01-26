@@ -28,7 +28,7 @@
                   <mat-label>{{'register.username' | translate}}</mat-label>
                   <input type="text" matInput formControlName="username" placeholder="Ex. John_Doe" />
                   <mat-error *ngIf="registerForm.controls.username.errors?.['required']">
-                    {{'register.username-is' | translate}} <strong>{{'register.required' | translate}}</strong>
+                    {{'register.username' | translate}} <strong>{{'register.required' | translate}}</strong>
                   </mat-error>
                   <mat-error *ngIf="registerForm.controls.username.errors?.['minlength']">
                     {{'register.usernameMin' | translate}}
@@ -78,7 +78,7 @@
                     {{'register.confirm-the' | translate}}
                   </mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="fill" data-aos="fade-down" data-aos-duration="1000">
+                <mat-form-field appearance="fill" data-aos="fade-down" data-aos-duration="1000" dir="ltr">
                   <mat-label>{{'register.phone_number' | translate}}</mat-label>
                   <input type="text" matInput formControlName="phone_number" placeholder="Ex. +966205920506204861" />
                 </mat-form-field>
